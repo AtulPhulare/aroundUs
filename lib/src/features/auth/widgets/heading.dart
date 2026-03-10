@@ -6,15 +6,17 @@ class HeadingWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final c = AppColors.of(context);
+
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
-      children: const [
+      children: [
         Text(
           "Welcome\nback 👋",
           style: TextStyle(
             fontSize: 38,
             fontWeight: FontWeight.w900,
-            color: AppColors.dark,
+            color: c.textPrimary,
             letterSpacing: -1.5,
             height: 1.1,
           ),
@@ -24,7 +26,7 @@ class HeadingWidget extends StatelessWidget {
 
         Text(
           "Sign in to see what's happening around you.",
-          style: TextStyle(fontSize: 14.5, color: AppColors.muted, height: 1.5),
+          style: TextStyle(fontSize: 14.5, color: c.textSecondary, height: 1.5),
         ),
       ],
     );

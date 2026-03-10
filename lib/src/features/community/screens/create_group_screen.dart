@@ -89,8 +89,10 @@ class _CreateGroupScreenState extends State<CreateGroupScreen>
 
   @override
   Widget build(BuildContext context) {
+    final c = AppColors.of(context);
+    final t = AppTextStyles.of(context);
     return Scaffold(
-      backgroundColor: AppColors.background,
+      backgroundColor: c.background,
       body: SafeArea(
         child: FadeTransition(
           opacity: _fade,
@@ -109,19 +111,19 @@ class _CreateGroupScreenState extends State<CreateGroupScreen>
                           height: 44,
                           width: 44,
                           decoration: BoxDecoration(
-                            color: AppColors.surface,
+                            color: c.surface,
                             borderRadius: BorderRadius.circular(12),
-                            boxShadow: const [
+                            boxShadow: [
                               BoxShadow(
-                                color: AppColors.shadow,
+                                color: c.shadow,
                                 blurRadius: 8,
                                 offset: Offset(0, 2),
                               ),
                             ],
                           ),
-                          child: const Icon(
+                          child: Icon(
                             Icons.arrow_back_rounded,
-                            color: AppColors.dark,
+                            color: c.textPrimary,
                             size: 20,
                           ),
                         ),
@@ -129,10 +131,7 @@ class _CreateGroupScreenState extends State<CreateGroupScreen>
                       const SizedBox(width: 16),
                       Text(
                         'Create Group',
-                        style: AppTextStyles.body.copyWith(
-                          fontSize: 18,
-                          fontWeight: FontWeight.w800,
-                        ),
+                        style: t.heading.copyWith(fontSize: 18),
                       ),
                     ],
                   ),
@@ -168,7 +167,7 @@ class _CreateGroupScreenState extends State<CreateGroupScreen>
                                   decoration: BoxDecoration(
                                     color: isSelected
                                         ? AppColors.orangeLight
-                                        : AppColors.surface,
+                                        : c.surface,
                                     borderRadius: BorderRadius.circular(14),
                                     border: Border.all(
                                       color: isSelected
@@ -176,9 +175,9 @@ class _CreateGroupScreenState extends State<CreateGroupScreen>
                                           : Colors.transparent,
                                       width: 2,
                                     ),
-                                    boxShadow: const [
+                                    boxShadow: [
                                       BoxShadow(
-                                        color: AppColors.shadow,
+                                        color: c.shadow,
                                         blurRadius: 6,
                                         offset: Offset(0, 2),
                                       ),
@@ -214,24 +213,24 @@ class _CreateGroupScreenState extends State<CreateGroupScreen>
                         const SizedBox(height: 10),
                         Container(
                           decoration: BoxDecoration(
-                            color: AppColors.surface,
+                            color: c.surface,
                             borderRadius: BorderRadius.circular(16),
                           ),
                           child: TextField(
                             controller: _descCtrl,
                             maxLines: 3,
-                            style: AppTextStyles.body.copyWith(fontSize: 14),
-                            decoration: const InputDecoration(
+                            style: t.body.copyWith(fontSize: 14),
+                            decoration: InputDecoration(
                               hintText: 'What is this group about?',
                               hintStyle: TextStyle(
-                                color: AppColors.hint,
+                                color: c.textHint,
                                 fontSize: 14,
                               ),
                               prefixIcon: Padding(
                                 padding: EdgeInsets.only(bottom: 42),
                                 child: Icon(
                                   Icons.description_outlined,
-                                  color: AppColors.muted,
+                                  color: c.textSecondary,
                                   size: 20,
                                 ),
                               ),
@@ -266,12 +265,12 @@ class _CreateGroupScreenState extends State<CreateGroupScreen>
                                 decoration: BoxDecoration(
                                   color: isSelected
                                       ? AppColors.orange
-                                      : AppColors.surface,
+                                      : c.surface,
                                   borderRadius: BorderRadius.circular(24),
                                   border: Border.all(
                                     color: isSelected
                                         ? AppColors.orange
-                                        : AppColors.hint.withOpacity(0.3),
+                                        : c.textSecondary.withOpacity(0.3),
                                   ),
                                   boxShadow: isSelected
                                       ? [
@@ -283,9 +282,9 @@ class _CreateGroupScreenState extends State<CreateGroupScreen>
                                             offset: const Offset(0, 3),
                                           ),
                                         ]
-                                      : const [
+                                      : [
                                           BoxShadow(
-                                            color: AppColors.shadow,
+                                            color: c.shadow,
                                             blurRadius: 4,
                                             offset: Offset(0, 1),
                                           ),
@@ -298,7 +297,7 @@ class _CreateGroupScreenState extends State<CreateGroupScreen>
                                     fontWeight: FontWeight.w600,
                                     color: isSelected
                                         ? Colors.white
-                                        : AppColors.dark,
+                                        : c.textSecondary,
                                   ),
                                 ),
                               ),
@@ -326,11 +325,11 @@ class _CreateGroupScreenState extends State<CreateGroupScreen>
                             vertical: 14,
                           ),
                           decoration: BoxDecoration(
-                            color: AppColors.surface,
+                            color: c.surface,
                             borderRadius: BorderRadius.circular(16),
-                            boxShadow: const [
+                            boxShadow: [
                               BoxShadow(
-                                color: AppColors.shadow,
+                                color: c.shadow,
                                 blurRadius: 8,
                                 offset: Offset(0, 2),
                               ),
@@ -365,7 +364,7 @@ class _CreateGroupScreenState extends State<CreateGroupScreen>
                                       _isPrivate
                                           ? 'Private Group'
                                           : 'Public Group',
-                                      style: AppTextStyles.body.copyWith(
+                                      style: t.body.copyWith(
                                         fontWeight: FontWeight.w700,
                                       ),
                                     ),
@@ -373,7 +372,7 @@ class _CreateGroupScreenState extends State<CreateGroupScreen>
                                       _isPrivate
                                           ? 'Members approved by admin'
                                           : 'Anyone can join instantly',
-                                      style: AppTextStyles.subHeading.copyWith(
+                                      style: t.subHeading.copyWith(
                                         fontSize: 11,
                                       ),
                                     ),
@@ -414,10 +413,9 @@ class _CreateGroupScreenState extends State<CreateGroupScreen>
   Widget _sectionLabel(String label) {
     return Text(
       label,
-      style: AppTextStyles.body.copyWith(
-        fontWeight: FontWeight.w700,
-        fontSize: 14,
-      ),
+      style: AppTextStyles.of(
+        context,
+      ).body.copyWith(fontWeight: FontWeight.w700, fontSize: 14),
     );
   }
 }

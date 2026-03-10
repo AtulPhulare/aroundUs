@@ -62,8 +62,11 @@ class _LoginScreenState extends State<LoginScreen>
 
   @override
   Widget build(BuildContext context) {
+    final c = AppColors.of(context);
+    final t = AppTextStyles.of(context);
+
     return Scaffold(
-      backgroundColor: AppColors.background,
+      backgroundColor: c.background,
       body: SafeArea(
         child: FadeTransition(
           opacity: _fade,
@@ -75,38 +78,24 @@ class _LoginScreenState extends State<LoginScreen>
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   const SizedBox(height: 32),
-
                   const LogoWidget(),
-
                   const SizedBox(height: 44),
 
-                  // ── Heading ─────────────────────────
-                  const Text(
-                    'Welcome\nback 👋',
-                    style: TextStyle(
-                      fontSize: 38,
-                      fontWeight: FontWeight.w900,
-                      color: AppColors.dark,
-                      letterSpacing: -1.5,
-                      height: 1.1,
-                    ),
-                  ),
+                  Text('Welcome\nback 👋', style: t.heading),
                   const SizedBox(height: 10),
                   Text(
                     "Sign in to see what's happening around you.",
-                    style: AppTextStyles.subHeading,
+                    style: t.subHeading,
                   ),
 
                   const SizedBox(height: 40),
 
-                  // ── Fields ──────────────────────────
                   CommonTextField(
                     controller: _emailCtrl,
                     hint: 'Email address',
                     icon: Icons.mail_outline_rounded,
                     keyboardType: TextInputType.emailAddress,
                   ),
-
                   const SizedBox(height: 14),
 
                   CommonTextField(
@@ -120,13 +109,12 @@ class _LoginScreenState extends State<LoginScreen>
                         _obscure
                             ? Icons.visibility_off_outlined
                             : Icons.visibility_outlined,
-                        color: AppColors.muted,
+                        color: c.textSecondary,
                         size: 20,
                       ),
                     ),
                   ),
 
-                  // ── Forgot password ──────────────────
                   Align(
                     alignment: Alignment.centerRight,
                     child: TextButton(
@@ -147,7 +135,6 @@ class _LoginScreenState extends State<LoginScreen>
 
                   const SizedBox(height: 20),
 
-                  // ── Primary CTA ──────────────────────
                   CommonButton(
                     title: 'Sign in',
                     loading: _loading,
@@ -155,20 +142,15 @@ class _LoginScreenState extends State<LoginScreen>
                   ),
 
                   const SizedBox(height: 28),
-
                   const DividerWidget(),
-
                   const SizedBox(height: 20),
 
-                  // ── Social buttons ───────────────────
                   CommonSocialButton(
                     icon: '🍎',
                     label: 'Continue with Apple',
                     onTap: _handleLogin,
                   ),
-
                   const SizedBox(height: 12),
-
                   CommonSocialButton(
                     icon: '🌐',
                     label: 'Continue with Google',
@@ -177,9 +159,26 @@ class _LoginScreenState extends State<LoginScreen>
 
                   const SizedBox(height: 36),
 
-                  // ── Sign up link ─────────────────────
-                  _SignupRow(),
-
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      Text(
+                        'New here? ',
+                        style: TextStyle(color: c.textSecondary, fontSize: 14),
+                      ),
+                      GestureDetector(
+                        onTap: () => Get.toNamed(AppRoutes.signup),
+                        child: const Text(
+                          'Create account',
+                          style: TextStyle(
+                            color: AppColors.orange,
+                            fontWeight: FontWeight.w700,
+                            fontSize: 14,
+                          ),
+                        ),
+                      ),
+                    ],
+                  ),
                   const SizedBox(height: 36),
                 ],
               ),
@@ -187,32 +186,6 @@ class _LoginScreenState extends State<LoginScreen>
           ),
         ),
       ),
-    );
-  }
-}
-
-class _SignupRow extends StatelessWidget {
-  @override
-  Widget build(BuildContext context) {
-    return Row(
-      mainAxisAlignment: MainAxisAlignment.center,
-      children: [
-        const Text(
-          "New here? ",
-          style: TextStyle(color: AppColors.muted, fontSize: 14),
-        ),
-        GestureDetector(
-          onTap: () => Get.toNamed(AppRoutes.signup),
-          child: const Text(
-            'Create account',
-            style: TextStyle(
-              color: AppColors.orange,
-              fontWeight: FontWeight.w700,
-              fontSize: 14,
-            ),
-          ),
-        ),
-      ],
     );
   }
 }

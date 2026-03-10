@@ -6,6 +6,7 @@ class LogoWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final c = AppColors.of(context);
     return Row(
       children: [
         Container(
@@ -13,7 +14,7 @@ class LogoWidget extends StatelessWidget {
           height: 36,
           decoration: BoxDecoration(
             shape: BoxShape.circle,
-            color: AppColors.orange.withOpacity(.12),
+            color: AppColors.orangeLight,
           ),
           child: const Icon(
             Icons.location_on_rounded,
@@ -22,12 +23,12 @@ class LogoWidget extends StatelessWidget {
           ),
         ),
         const SizedBox(width: 10),
-        const Text(
-          "around us",
+        Text(
+          'around us',
           style: TextStyle(
             fontSize: 17,
             fontWeight: FontWeight.w800,
-            color: AppColors.dark,
+            color: c.textPrimary,
             letterSpacing: -.5,
           ),
         ),

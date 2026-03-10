@@ -1,33 +1,50 @@
 import 'package:flutter/material.dart';
+import 'package:google_fonts/google_fonts.dart';
 import 'app_colors.dart';
 
-abstract class AppTextStyles {
-  static const heading = TextStyle(
-    fontSize: 38,
-    fontWeight: FontWeight.w900,
-    color: AppColors.dark,
-    letterSpacing: -1.5,
-    height: 1.1,
-  );
+/// Theme-aware text styles via `AppTextStyles.of(context)`.
+class AppTextStyles {
+  final TextStyle heading;
+  final TextStyle subHeading;
+  final TextStyle button;
+  final TextStyle body;
+  final TextStyle hint;
 
-  static const subHeading = TextStyle(
-    fontSize: 14.5,
-    color: AppColors.muted,
-    height: 1.5,
-  );
+  const AppTextStyles._({
+    required this.heading,
+    required this.subHeading,
+    required this.button,
+    required this.body,
+    required this.hint,
+  });
 
-  static const button = TextStyle(
-    fontSize: 16,
-    fontWeight: FontWeight.w700,
-    letterSpacing: 0.2,
-    color: Colors.white,
-  );
-
-  static const body = TextStyle(
-    fontSize: 15,
-    fontWeight: FontWeight.w500,
-    color: AppColors.dark,
-  );
-
-  static const hint = TextStyle(fontSize: 14, color: AppColors.hint);
+  static AppTextStyles of(BuildContext context) {
+    final c = AppColors.of(context);
+    return AppTextStyles._(
+      heading: GoogleFonts.outfit(
+        fontSize: 38,
+        fontWeight: FontWeight.w900,
+        color: c.textPrimary,
+        letterSpacing: -1.5,
+        height: 1.1,
+      ),
+      subHeading: GoogleFonts.inter(
+        fontSize: 14.5,
+        color: c.textSecondary,
+        height: 1.5,
+      ),
+      button: GoogleFonts.inter(
+        fontSize: 16,
+        fontWeight: FontWeight.w700,
+        letterSpacing: 0.2,
+        color: Colors.white,
+      ),
+      body: GoogleFonts.inter(
+        fontSize: 15,
+        fontWeight: FontWeight.w500,
+        color: c.textPrimary,
+      ),
+      hint: GoogleFonts.inter(fontSize: 14, color: c.textHint),
+    );
+  }
 }

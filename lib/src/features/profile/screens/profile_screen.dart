@@ -9,8 +9,11 @@ class ProfileScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final c = AppColors.of(context);
+    final t = AppTextStyles.of(context);
+
     return Scaffold(
-      backgroundColor: AppColors.background,
+      backgroundColor: c.background,
       body: SafeArea(
         child: SingleChildScrollView(
           padding: const EdgeInsets.symmetric(horizontal: 24),
@@ -18,10 +21,7 @@ class ProfileScreen extends StatelessWidget {
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               const SizedBox(height: 24),
-              Text(
-                'Profile',
-                style: AppTextStyles.heading.copyWith(fontSize: 28),
-              ),
+              Text('Profile', style: t.heading.copyWith(fontSize: 28)),
               const SizedBox(height: 24),
 
               // ── Avatar Card ──────────────────────────
@@ -70,8 +70,8 @@ class ProfileScreen extends StatelessWidget {
                           decoration: BoxDecoration(
                             color: Colors.white,
                             shape: BoxShape.circle,
-                            boxShadow: const [
-                              BoxShadow(color: AppColors.shadow, blurRadius: 6),
+                            boxShadow: [
+                              BoxShadow(color: c.shadow, blurRadius: 6),
                             ],
                           ),
                           child: const Icon(
@@ -250,17 +250,19 @@ class _SectionCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final c = AppColors.of(context);
+    final t = AppTextStyles.of(context);
     return Container(
       width: double.infinity,
       padding: const EdgeInsets.all(18),
       decoration: BoxDecoration(
-        color: AppColors.surface,
+        color: c.card,
         borderRadius: BorderRadius.circular(20),
-        boxShadow: const [
+        boxShadow: [
           BoxShadow(
-            color: AppColors.shadow,
+            color: c.shadow,
             blurRadius: 10,
-            offset: Offset(0, 4),
+            offset: const Offset(0, 4),
           ),
         ],
       ),
@@ -279,16 +281,15 @@ class _SectionHeader extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final c = AppColors.of(context);
+    final t = AppTextStyles.of(context);
     return Row(
       children: [
         Icon(icon, size: 18, color: AppColors.orange),
         const SizedBox(width: 8),
         Text(
           label,
-          style: AppTextStyles.body.copyWith(
-            fontWeight: FontWeight.w800,
-            fontSize: 14,
-          ),
+          style: t.body.copyWith(fontWeight: FontWeight.w800, fontSize: 14),
         ),
       ],
     );
@@ -314,6 +315,8 @@ class _SettingsTile extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final c = AppColors.of(context);
+    final t = AppTextStyles.of(context);
     return GestureDetector(
       onTap: onTap,
       behavior: HitTestBehavior.opaque,
@@ -333,17 +336,17 @@ class _SettingsTile extends StatelessWidget {
             Expanded(
               child: Text(
                 label,
-                style: AppTextStyles.body.copyWith(
+                style: t.body.copyWith(
                   fontWeight: FontWeight.w600,
-                  color: isDestructive ? AppColors.orange : AppColors.dark,
+                  color: isDestructive ? c.surface : c.border,
                 ),
               ),
             ),
             if (showArrow)
-              const Icon(
+              Icon(
                 Icons.arrow_forward_ios_rounded,
                 size: 14,
-                color: AppColors.hint,
+                color: c.textHint,
               ),
           ],
         ),
@@ -357,10 +360,11 @@ class _Divider extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final c = AppColors.of(context);
     return Container(
       height: 1,
       margin: const EdgeInsets.only(left: 42),
-      color: AppColors.border,
+      color: c.border,
     );
   }
 }

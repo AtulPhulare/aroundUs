@@ -2,19 +2,13 @@ import 'package:around_us/src/utils/theme/app_colors.dart';
 import 'package:around_us/src/utils/theme/app_text_styles.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:google_fonts/google_fonts.dart';
 import '../../../routes/app_routes.dart';
 
-// ──────────────────────────────────────────
-// Data model (local mock)
-// ──────────────────────────────────────────
 class _GroupData {
-  final String emoji;
-  final String name;
-  final String category;
-  final String location;
+  final String emoji, name, category, location;
   final int members;
   final Color tagColor;
-
   const _GroupData({
     required this.emoji,
     required this.name,
@@ -76,9 +70,6 @@ const _mockGroups = [
   ),
 ];
 
-// ──────────────────────────────────────────
-// Screen
-// ──────────────────────────────────────────
 class ExploreScreen extends StatefulWidget {
   const ExploreScreen({super.key});
 
@@ -87,7 +78,7 @@ class ExploreScreen extends StatefulWidget {
 }
 
 class _ExploreScreenState extends State<ExploreScreen> {
-  final List<String> _categories = [
+  final _categories = [
     'All',
     'Sports',
     'Music',
@@ -115,13 +106,15 @@ class _ExploreScreenState extends State<ExploreScreen> {
 
   @override
   Widget build(BuildContext context) {
+    final c = AppColors.of(context);
+    final t = AppTextStyles.of(context);
+
     return Scaffold(
-      backgroundColor: AppColors.background,
+      backgroundColor: c.background,
       body: SafeArea(
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            // ── Header ──────────────────────────────
             Padding(
               padding: const EdgeInsets.fromLTRB(24, 24, 24, 0),
               child: Row(
@@ -132,11 +125,11 @@ class _ExploreScreenState extends State<ExploreScreen> {
                       children: [
                         Text(
                           'Explore Groups',
-                          style: AppTextStyles.heading.copyWith(fontSize: 28),
+                          style: t.heading.copyWith(fontSize: 28),
                         ),
                         Text(
                           'Discover nearby communities',
-                          style: AppTextStyles.subHeading,
+                          style: t.subHeading,
                         ),
                       ],
                     ),
@@ -151,7 +144,7 @@ class _ExploreScreenState extends State<ExploreScreen> {
                         borderRadius: BorderRadius.circular(14),
                         boxShadow: [
                           BoxShadow(
-                            color: AppColors.orange.withOpacity(0.35),
+                            color: AppColors.orange.withValues(alpha: 0.35),
                             blurRadius: 12,
                             offset: const Offset(0, 4),
                           ),
@@ -163,45 +156,47 @@ class _ExploreScreenState extends State<ExploreScreen> {
                 ],
               ),
             ),
-
             const SizedBox(height: 20),
 
-            // ── Search ──────────────────────────────
+            // Search
             Padding(
               padding: const EdgeInsets.symmetric(horizontal: 24),
               child: Container(
                 decoration: BoxDecoration(
-                  color: AppColors.surface,
+                  color: c.inputFill,
                   borderRadius: BorderRadius.circular(16),
-                  boxShadow: const [
+                  boxShadow: [
                     BoxShadow(
-                      color: AppColors.shadow,
+                      color: c.shadow,
                       blurRadius: 8,
-                      offset: Offset(0, 2),
+                      offset: const Offset(0, 2),
                     ),
                   ],
                 ),
                 child: TextField(
                   controller: _searchCtrl,
                   onChanged: (v) => setState(() => _query = v),
-                  decoration: const InputDecoration(
+                  style: GoogleFonts.inter(fontSize: 14, color: c.textPrimary),
+                  decoration: InputDecoration(
                     hintText: 'Search groups near you...',
-                    hintStyle: TextStyle(color: AppColors.hint, fontSize: 14),
+                    hintStyle: GoogleFonts.inter(
+                      color: c.textHint,
+                      fontSize: 14,
+                    ),
                     prefixIcon: Icon(
                       Icons.search_rounded,
-                      color: AppColors.muted,
+                      color: c.textSecondary,
                       size: 22,
                     ),
                     border: InputBorder.none,
-                    contentPadding: EdgeInsets.symmetric(vertical: 16),
+                    contentPadding: const EdgeInsets.symmetric(vertical: 16),
                   ),
                 ),
               ),
             ),
-
             const SizedBox(height: 16),
 
-            // ── Category Filter ──────────────────────
+            // Category chips
             SizedBox(
               height: 38,
               child: ListView.separated(
@@ -210,7 +205,7 @@ class _ExploreScreenState extends State<ExploreScreen> {
                 itemCount: _categories.length,
                 separatorBuilder: (_, __) => const SizedBox(width: 8),
                 itemBuilder: (_, i) {
-                  final isSelected = _categories[i] == _selectedCat;
+                  final isSel = _categories[i] == _selectedCat;
                   return GestureDetector(
                     onTap: () => setState(() => _selectedCat = _categories[i]),
                     child: AnimatedContainer(
@@ -220,32 +215,32 @@ class _ExploreScreenState extends State<ExploreScreen> {
                         vertical: 8,
                       ),
                       decoration: BoxDecoration(
-                        color: isSelected
-                            ? AppColors.orange
-                            : AppColors.surface,
+                        color: isSel ? AppColors.orange : c.surface,
                         borderRadius: BorderRadius.circular(24),
-                        boxShadow: isSelected
+                        boxShadow: isSel
                             ? [
                                 BoxShadow(
-                                  color: AppColors.orange.withOpacity(0.3),
+                                  color: AppColors.orange.withValues(
+                                    alpha: 0.3,
+                                  ),
                                   blurRadius: 8,
                                   offset: const Offset(0, 3),
                                 ),
                               ]
-                            : const [
+                            : [
                                 BoxShadow(
-                                  color: AppColors.shadow,
+                                  color: c.shadow,
                                   blurRadius: 6,
-                                  offset: Offset(0, 2),
+                                  offset: const Offset(0, 2),
                                 ),
                               ],
                       ),
                       child: Text(
                         _categories[i],
-                        style: TextStyle(
+                        style: GoogleFonts.inter(
                           fontSize: 13,
                           fontWeight: FontWeight.w600,
-                          color: isSelected ? Colors.white : AppColors.muted,
+                          color: isSel ? Colors.white : c.textSecondary,
                         ),
                       ),
                     ),
@@ -253,18 +248,12 @@ class _ExploreScreenState extends State<ExploreScreen> {
                 },
               ),
             ),
-
             const SizedBox(height: 18),
 
-            // ── Group Cards ──────────────────────────
+            // Group cards
             Expanded(
               child: _filtered.isEmpty
-                  ? Center(
-                      child: Text(
-                        'No groups found',
-                        style: AppTextStyles.subHeading,
-                      ),
-                    )
+                  ? Center(child: Text('No groups found', style: t.subHeading))
                   : ListView.separated(
                       padding: const EdgeInsets.fromLTRB(24, 0, 24, 24),
                       itemCount: _filtered.length,
@@ -285,18 +274,19 @@ class _GroupCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final c = AppColors.of(context);
     return GestureDetector(
       onTap: () => Get.toNamed(AppRoutes.groupChat),
       child: Container(
         padding: const EdgeInsets.all(18),
         decoration: BoxDecoration(
-          color: AppColors.surface,
+          color: c.card,
           borderRadius: BorderRadius.circular(20),
-          boxShadow: const [
+          boxShadow: [
             BoxShadow(
-              color: AppColors.shadow,
+              color: c.shadow,
               blurRadius: 10,
-              offset: Offset(0, 4),
+              offset: const Offset(0, 4),
             ),
           ],
         ),
@@ -320,24 +310,27 @@ class _GroupCard extends StatelessWidget {
                 children: [
                   Text(
                     group.name,
-                    style: AppTextStyles.body.copyWith(
+                    style: GoogleFonts.inter(
+                      fontSize: 15,
                       fontWeight: FontWeight.w700,
+                      color: c.textPrimary,
                     ),
                   ),
                   const SizedBox(height: 4),
                   Row(
                     children: [
-                      const Icon(
+                      Icon(
                         Icons.location_on_rounded,
                         size: 12,
-                        color: AppColors.muted,
+                        color: c.textSecondary,
                       ),
                       const SizedBox(width: 4),
                       Expanded(
                         child: Text(
                           group.location,
-                          style: AppTextStyles.subHeading.copyWith(
+                          style: GoogleFonts.inter(
                             fontSize: 12,
+                            color: c.textSecondary,
                           ),
                           overflow: TextOverflow.ellipsis,
                         ),
@@ -358,23 +351,26 @@ class _GroupCard extends StatelessWidget {
                         ),
                         child: Text(
                           group.category,
-                          style: const TextStyle(
+                          style: GoogleFonts.inter(
                             fontSize: 11,
                             fontWeight: FontWeight.w600,
-                            color: AppColors.dark,
+                            color: c.textPrimary,
                           ),
                         ),
                       ),
                       const SizedBox(width: 8),
-                      const Icon(
+                      Icon(
                         Icons.people_outline_rounded,
                         size: 13,
-                        color: AppColors.muted,
+                        color: c.textSecondary,
                       ),
                       const SizedBox(width: 3),
                       Text(
                         '${group.members} members',
-                        style: AppTextStyles.subHeading.copyWith(fontSize: 12),
+                        style: GoogleFonts.inter(
+                          fontSize: 12,
+                          color: c.textSecondary,
+                        ),
                       ),
                     ],
                   ),
@@ -388,10 +384,10 @@ class _GroupCard extends StatelessWidget {
                 color: AppColors.orangeLight,
                 borderRadius: BorderRadius.circular(10),
               ),
-              child: const Center(
+              child: Center(
                 child: Text(
                   'Join',
-                  style: TextStyle(
+                  style: GoogleFonts.inter(
                     fontSize: 13,
                     fontWeight: FontWeight.w700,
                     color: AppColors.orange,

@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:google_fonts/google_fonts.dart';
 import '../routes/app_routes.dart';
 import 'theme/app_colors.dart';
 
@@ -15,7 +16,6 @@ class _SplashScreenState extends State<SplashScreen>
   late final AnimationController _pulse;
   late final AnimationController _content;
 
-  late final Animation<double> _pulseFade;
   late final Animation<double> _logoFade;
   late final Animation<Offset> _logoSlide;
   late final Animation<double> _chipsFade;
@@ -35,21 +35,16 @@ class _SplashScreenState extends State<SplashScreen>
   void initState() {
     super.initState();
 
-    // Pulse rings — runs forever
     _pulse = AnimationController(
       vsync: this,
       duration: const Duration(seconds: 2),
     )..repeat();
 
-    // Content reveal — one-shot, 1.4 s total
     _content = AnimationController(
       vsync: this,
       duration: const Duration(milliseconds: 1400),
     )..forward();
 
-    _pulseFade = CurvedAnimation(parent: _pulse, curve: Curves.easeInOut);
-
-    // Logo slides up and fades in early
     _logoFade = CurvedAnimation(
       parent: _content,
       curve: const Interval(0.0, 0.5, curve: Curves.easeOut),
@@ -62,7 +57,6 @@ class _SplashScreenState extends State<SplashScreen>
           ),
         );
 
-    // Chips appear after logo
     _chipsFade = CurvedAnimation(
       parent: _content,
       curve: const Interval(0.45, 0.85, curve: Curves.easeOut),
@@ -75,16 +69,15 @@ class _SplashScreenState extends State<SplashScreen>
           ),
         );
 
-    // Tagline last
     _taglineFade = CurvedAnimation(
       parent: _content,
       curve: const Interval(0.75, 1.0, curve: Curves.easeOut),
     );
 
-    // Navigate after 3 s using GetX — safe, no context needed
-    Future.delayed(const Duration(seconds: 3), () {
-      Get.offAllNamed(AppRoutes.login);
-    });
+    Future.delayed(
+      const Duration(seconds: 3),
+      () => Get.offAllNamed(AppRoutes.login),
+    );
   }
 
   @override
@@ -96,36 +89,33 @@ class _SplashScreenState extends State<SplashScreen>
 
   @override
   Widget build(BuildContext context) {
+    final c = AppColors.of(context);
     final size = MediaQuery.of(context).size;
 
     return Scaffold(
-      backgroundColor: AppColors.background,
+      backgroundColor: c.background,
       body: Stack(
         alignment: Alignment.center,
         children: [
-          // ── Pulse rings centred on screen ──────────
           AnimatedBuilder(
             animation: _pulse,
             builder: (_, __) => CustomPaint(
-              painter: _PulsePainter(_pulse.value),
+              painter: _PulsePainter(_pulse.value, c.background),
               size: Size(size.width, size.height),
             ),
           ),
 
-          // ── Main content column ─────────────────────
           SafeArea(
             child: Column(
               children: [
                 const Spacer(flex: 3),
 
-                // Logo + wordmark
                 FadeTransition(
                   opacity: _logoFade,
                   child: SlideTransition(
                     position: _logoSlide,
                     child: Column(
                       children: [
-                        // Icon badge
                         Container(
                           width: 88,
                           height: 88,
@@ -147,13 +137,13 @@ class _SplashScreenState extends State<SplashScreen>
                           ),
                         ),
                         const SizedBox(height: 20),
-                        const Text(
+                        Text(
                           'around us',
-                          style: TextStyle(
+                          style: GoogleFonts.outfit(
                             fontSize: 44,
                             fontWeight: FontWeight.w900,
                             letterSpacing: -2,
-                            color: AppColors.dark,
+                            color: c.textPrimary,
                             height: 1,
                           ),
                         ),
@@ -164,7 +154,6 @@ class _SplashScreenState extends State<SplashScreen>
 
                 const Spacer(flex: 2),
 
-                // Interest chips
                 FadeTransition(
                   opacity: _chipsFade,
                   child: SlideTransition(
@@ -185,22 +174,21 @@ class _SplashScreenState extends State<SplashScreen>
 
                 const Spacer(flex: 2),
 
-                // Tagline + dots
                 FadeTransition(
                   opacity: _taglineFade,
                   child: Column(
-                    children: const [
+                    children: [
                       Text(
                         'Find people who share your vibe, nearby.',
                         textAlign: TextAlign.center,
-                        style: TextStyle(
+                        style: GoogleFonts.inter(
                           fontSize: 14,
-                          color: AppColors.muted,
+                          color: c.textSecondary,
                           height: 1.5,
                         ),
                       ),
-                      SizedBox(height: 28),
-                      _LoadingDots(),
+                      const SizedBox(height: 28),
+                      const _LoadingDots(),
                     ],
                   ),
                 ),
@@ -215,33 +203,28 @@ class _SplashScreenState extends State<SplashScreen>
   }
 }
 
-// ── Sub-widgets ──────────────────────────────────────────────────────────────
-
 class _InterestChip extends StatelessWidget {
   final String label;
   const _InterestChip({required this.label});
 
   @override
   Widget build(BuildContext context) {
+    final c = AppColors.of(context);
     return Container(
       padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 9),
       decoration: BoxDecoration(
-        color: AppColors.surface,
+        color: c.surface,
         borderRadius: BorderRadius.circular(24),
-        boxShadow: const [
-          BoxShadow(
-            color: AppColors.shadow,
-            blurRadius: 8,
-            offset: Offset(0, 3),
-          ),
+        boxShadow: [
+          BoxShadow(color: c.shadow, blurRadius: 8, offset: const Offset(0, 3)),
         ],
       ),
       child: Text(
         label,
-        style: const TextStyle(
+        style: GoogleFonts.inter(
           fontSize: 13,
           fontWeight: FontWeight.w600,
-          color: AppColors.dark,
+          color: c.textPrimary,
         ),
       ),
     );
@@ -306,11 +289,10 @@ class _LoadingDotsState extends State<_LoadingDots>
   }
 }
 
-// ── Pulse Painter ────────────────────────────────────────────────────────────
-
 class _PulsePainter extends CustomPainter {
   final double progress;
-  _PulsePainter(this.progress);
+  final Color bg;
+  _PulsePainter(this.progress, this.bg);
 
   @override
   void paint(Canvas canvas, Size size) {

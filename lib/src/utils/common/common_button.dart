@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:google_fonts/google_fonts.dart';
 import '../theme/app_colors.dart';
-import '../theme/app_text_styles.dart';
 
 class CommonButton extends StatelessWidget {
   final String title;
@@ -24,6 +24,7 @@ class CommonButton extends StatelessWidget {
         style: ElevatedButton.styleFrom(
           backgroundColor: AppColors.orange,
           foregroundColor: Colors.white,
+          disabledBackgroundColor: AppColors.orange.withValues(alpha: 0.5),
           elevation: 0,
           shape: RoundedRectangleBorder(
             borderRadius: BorderRadius.circular(16),
@@ -38,7 +39,14 @@ class CommonButton extends StatelessWidget {
                   color: Colors.white,
                 ),
               )
-            : Text(title, style: AppTextStyles.button),
+            : Text(
+                title,
+                style: GoogleFonts.inter(
+                  fontSize: 16,
+                  fontWeight: FontWeight.w700,
+                  color: Colors.white,
+                ),
+              ),
       ),
     );
   }

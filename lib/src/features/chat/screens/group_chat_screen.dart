@@ -1,14 +1,13 @@
 import 'package:around_us/src/utils/theme/app_colors.dart';
-import 'package:around_us/src/utils/theme/app_text_styles.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:google_fonts/google_fonts.dart';
 
 class _Message {
   final String text;
   final bool isMine;
   final String sender;
   final String time;
-
   const _Message({
     required this.text,
     required this.isMine,
@@ -17,7 +16,7 @@ class _Message {
   });
 }
 
-final _messages = [
+final _seedMessages = [
   _Message(
     text: "Hey everyone! Who's free this Saturday for a game?",
     isMine: false,
@@ -55,13 +54,13 @@ class GroupChatScreen extends StatefulWidget {
 class _GroupChatScreenState extends State<GroupChatScreen> {
   final _msgCtrl = TextEditingController();
   final _scrollCtrl = ScrollController();
-  final List<_Message> _allMessages = List.from(_messages);
+  final List<_Message> _messages = List.from(_seedMessages);
 
-  void _sendMessage() {
+  void _send() {
     final text = _msgCtrl.text.trim();
     if (text.isEmpty) return;
     setState(() {
-      _allMessages.add(
+      _messages.add(
         _Message(text: text, isMine: true, sender: 'Me', time: 'now'),
       );
       _msgCtrl.clear();
@@ -84,14 +83,16 @@ class _GroupChatScreenState extends State<GroupChatScreen> {
 
   @override
   Widget build(BuildContext context) {
+    final c = AppColors.of(context);
+
     return Scaffold(
-      backgroundColor: AppColors.background,
+      backgroundColor: c.background,
       appBar: AppBar(
-        backgroundColor: AppColors.surface,
+        backgroundColor: c.surface,
         elevation: 0,
         leading: GestureDetector(
           onTap: () => Get.back(),
-          child: const Icon(Icons.arrow_back_rounded, color: AppColors.dark),
+          child: Icon(Icons.arrow_back_rounded, color: c.textPrimary),
         ),
         title: Row(
           children: [
@@ -112,14 +113,18 @@ class _GroupChatScreenState extends State<GroupChatScreen> {
               children: [
                 Text(
                   'Volleyball in Kandivali',
-                  style: AppTextStyles.body.copyWith(
+                  style: GoogleFonts.inter(
                     fontSize: 14,
                     fontWeight: FontWeight.w700,
+                    color: c.textPrimary,
                   ),
                 ),
                 Text(
                   '28 members',
-                  style: AppTextStyles.subHeading.copyWith(fontSize: 11),
+                  style: GoogleFonts.inter(
+                    fontSize: 11,
+                    color: c.textSecondary,
+                  ),
                 ),
               ],
             ),
@@ -127,61 +132,58 @@ class _GroupChatScreenState extends State<GroupChatScreen> {
         ),
         actions: [
           IconButton(
-            icon: const Icon(
-              Icons.info_outline_rounded,
-              color: AppColors.muted,
-            ),
+            icon: Icon(Icons.info_outline_rounded, color: c.textSecondary),
             onPressed: () {},
           ),
         ],
       ),
       body: Column(
         children: [
-          // ── Messages List ────────────────────────
           Expanded(
             child: ListView.builder(
               controller: _scrollCtrl,
               padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 16),
-              itemCount: _allMessages.length,
-              itemBuilder: (_, i) => _MessageBubble(message: _allMessages[i]),
+              itemCount: _messages.length,
+              itemBuilder: (_, i) => _Bubble(message: _messages[i]),
             ),
           ),
-
-          // ── Input Bar ────────────────────────────
           Container(
             padding: const EdgeInsets.fromLTRB(16, 10, 16, 16),
-            color: AppColors.surface,
+            color: c.surface,
             child: Row(
               children: [
                 Expanded(
                   child: Container(
                     decoration: BoxDecoration(
-                      color: AppColors.background,
+                      color: c.inputFill,
                       borderRadius: BorderRadius.circular(24),
                     ),
                     child: TextField(
                       controller: _msgCtrl,
-                      style: AppTextStyles.body.copyWith(fontSize: 14),
-                      decoration: const InputDecoration(
+                      style: GoogleFonts.inter(
+                        fontSize: 14,
+                        color: c.textPrimary,
+                      ),
+                      decoration: InputDecoration(
                         hintText: 'Type a message...',
-                        hintStyle: TextStyle(
-                          color: AppColors.hint,
+                        hintStyle: GoogleFonts.inter(
+                          color: c.textHint,
                           fontSize: 14,
                         ),
                         border: InputBorder.none,
-                        contentPadding: EdgeInsets.symmetric(
+                        contentPadding: const EdgeInsets.symmetric(
                           horizontal: 18,
                           vertical: 12,
                         ),
                       ),
                       textInputAction: TextInputAction.send,
-                      onSubmitted: (_) => _sendMessage(),
+                      onSubmitted: (_) => _send(),
                     ),
                   ),
                 ),
                 const SizedBox(width: 10),
                 GestureDetector(
-                  onTap: _sendMessage,
+                  onTap: _send,
                   child: Container(
                     height: 48,
                     width: 48,
@@ -190,7 +192,7 @@ class _GroupChatScreenState extends State<GroupChatScreen> {
                       borderRadius: BorderRadius.circular(14),
                       boxShadow: [
                         BoxShadow(
-                          color: AppColors.orange.withOpacity(0.35),
+                          color: AppColors.orange.withValues(alpha: 0.35),
                           blurRadius: 10,
                           offset: const Offset(0, 4),
                         ),
@@ -212,12 +214,13 @@ class _GroupChatScreenState extends State<GroupChatScreen> {
   }
 }
 
-class _MessageBubble extends StatelessWidget {
+class _Bubble extends StatelessWidget {
   final _Message message;
-  const _MessageBubble({required this.message});
+  const _Bubble({required this.message});
 
   @override
   Widget build(BuildContext context) {
+    final c = AppColors.of(context);
     return Padding(
       padding: const EdgeInsets.only(bottom: 12),
       child: Column(
@@ -230,9 +233,10 @@ class _MessageBubble extends StatelessWidget {
               padding: const EdgeInsets.only(left: 4, bottom: 4),
               child: Text(
                 message.sender,
-                style: AppTextStyles.subHeading.copyWith(
+                style: GoogleFonts.inter(
                   fontSize: 11,
                   fontWeight: FontWeight.w600,
+                  color: c.textSecondary,
                 ),
               ),
             ),
@@ -248,10 +252,10 @@ class _MessageBubble extends StatelessWidget {
                   backgroundColor: AppColors.tagBlue,
                   child: Text(
                     message.sender[0],
-                    style: const TextStyle(
+                    style: GoogleFonts.inter(
                       fontSize: 12,
                       fontWeight: FontWeight.w700,
-                      color: AppColors.dark,
+                      color: c.textPrimary,
                     ),
                   ),
                 ),
@@ -264,29 +268,27 @@ class _MessageBubble extends StatelessWidget {
                     vertical: 10,
                   ),
                   decoration: BoxDecoration(
-                    color: message.isMine
-                        ? AppColors.orange
-                        : AppColors.surface,
+                    color: message.isMine ? AppColors.orange : c.card,
                     borderRadius: BorderRadius.only(
                       topLeft: const Radius.circular(18),
                       topRight: const Radius.circular(18),
                       bottomLeft: Radius.circular(message.isMine ? 18 : 4),
                       bottomRight: Radius.circular(message.isMine ? 4 : 18),
                     ),
-                    boxShadow: const [
+                    boxShadow: [
                       BoxShadow(
-                        color: AppColors.shadow,
+                        color: c.shadow,
                         blurRadius: 6,
-                        offset: Offset(0, 2),
+                        offset: const Offset(0, 2),
                       ),
                     ],
                   ),
                   child: Text(
                     message.text,
-                    style: TextStyle(
+                    style: GoogleFonts.inter(
                       fontSize: 14,
                       fontWeight: FontWeight.w500,
-                      color: message.isMine ? Colors.white : AppColors.dark,
+                      color: message.isMine ? Colors.white : c.textPrimary,
                     ),
                   ),
                 ),
@@ -298,7 +300,7 @@ class _MessageBubble extends StatelessWidget {
             padding: const EdgeInsets.symmetric(horizontal: 4),
             child: Text(
               message.time,
-              style: AppTextStyles.subHeading.copyWith(fontSize: 10),
+              style: GoogleFonts.inter(fontSize: 10, color: c.textSecondary),
             ),
           ),
         ],

@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:google_fonts/google_fonts.dart';
 import '../theme/app_colors.dart';
-import '../theme/app_text_styles.dart';
 
 class CommonTextField extends StatelessWidget {
   final TextEditingController controller;
@@ -22,18 +22,23 @@ class CommonTextField extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final c = AppColors.of(context);
     return TextField(
       controller: controller,
       obscureText: obscure,
       keyboardType: keyboardType,
-      style: AppTextStyles.body,
+      style: GoogleFonts.inter(
+        fontSize: 15,
+        fontWeight: FontWeight.w500,
+        color: c.textPrimary,
+      ),
       decoration: InputDecoration(
         hintText: hint,
-        hintStyle: AppTextStyles.hint,
-        prefixIcon: Icon(icon, color: AppColors.muted, size: 20),
+        hintStyle: GoogleFonts.inter(fontSize: 14, color: c.textHint),
+        prefixIcon: Icon(icon, color: c.textSecondary, size: 20),
         suffixIcon: suffix,
         filled: true,
-        fillColor: AppColors.surface,
+        fillColor: c.inputFill,
         contentPadding: const EdgeInsets.symmetric(
           horizontal: 16,
           vertical: 18,
@@ -41,6 +46,10 @@ class CommonTextField extends StatelessWidget {
         border: OutlineInputBorder(
           borderRadius: BorderRadius.circular(16),
           borderSide: BorderSide.none,
+        ),
+        focusedBorder: OutlineInputBorder(
+          borderRadius: BorderRadius.circular(16),
+          borderSide: const BorderSide(color: AppColors.orange, width: 1.5),
         ),
       ),
     );

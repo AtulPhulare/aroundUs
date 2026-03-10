@@ -3,6 +3,7 @@ import 'package:around_us/src/utils/theme/app_colors.dart';
 import 'package:around_us/src/utils/theme/app_text_styles.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:google_fonts/google_fonts.dart';
 import '../../../routes/app_routes.dart';
 
 class OtpScreen extends StatefulWidget {
@@ -57,11 +58,11 @@ class _OtpScreenState extends State<OtpScreen>
   @override
   void dispose() {
     _controller.dispose();
-    for (var c in _controllers) {
-      c.dispose();
+    for (var ctrl in _controllers) {
+      ctrl.dispose();
     }
-    for (var f in _focusNodes) {
-      f.dispose();
+    for (var fn in _focusNodes) {
+      fn.dispose();
     }
     super.dispose();
   }
@@ -85,8 +86,11 @@ class _OtpScreenState extends State<OtpScreen>
 
   @override
   Widget build(BuildContext context) {
+    final c = AppColors.of(context);
+    final t = AppTextStyles.of(context);
+
     return Scaffold(
-      backgroundColor: AppColors.background,
+      backgroundColor: c.background,
       body: SafeArea(
         child: FadeTransition(
           opacity: _fade,
@@ -104,19 +108,19 @@ class _OtpScreenState extends State<OtpScreen>
                       height: 44,
                       width: 44,
                       decoration: BoxDecoration(
-                        color: AppColors.surface,
+                        color: c.surface,
                         borderRadius: BorderRadius.circular(12),
-                        boxShadow: const [
+                        boxShadow: [
                           BoxShadow(
-                            color: AppColors.shadow,
+                            color: c.shadow,
                             blurRadius: 8,
-                            offset: Offset(0, 2),
+                            offset: const Offset(0, 2),
                           ),
                         ],
                       ),
-                      child: const Icon(
+                      child: Icon(
                         Icons.arrow_back_rounded,
-                        color: AppColors.dark,
+                        color: c.textPrimary,
                         size: 20,
                       ),
                     ),
@@ -138,16 +142,14 @@ class _OtpScreenState extends State<OtpScreen>
                   ),
                   const SizedBox(height: 24),
 
-                  Text('Verify your\nnumber', style: AppTextStyles.heading),
+                  Text('Verify your\nnumber', style: t.heading),
                   const SizedBox(height: 10),
                   Text(
                     'Enter the 6-digit code sent to your phone',
-                    style: AppTextStyles.subHeading,
+                    style: t.subHeading,
                   ),
-
                   const SizedBox(height: 44),
 
-                  // OTP Boxes
                   Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: List.generate(6, (i) {
@@ -161,15 +163,15 @@ class _OtpScreenState extends State<OtpScreen>
                           textAlign: TextAlign.center,
                           maxLength: 1,
                           onChanged: (v) => _onChanged(v, i),
-                          style: const TextStyle(
+                          style: GoogleFonts.outfit(
                             fontSize: 22,
                             fontWeight: FontWeight.w800,
-                            color: AppColors.dark,
+                            color: c.textPrimary,
                           ),
                           decoration: InputDecoration(
                             counterText: '',
                             filled: true,
-                            fillColor: AppColors.surface,
+                            fillColor: c.inputFill,
                             border: OutlineInputBorder(
                               borderRadius: BorderRadius.circular(14),
                               borderSide: BorderSide.none,
@@ -188,26 +190,21 @@ class _OtpScreenState extends State<OtpScreen>
                   ),
 
                   const SizedBox(height: 36),
-
                   CommonButton(
                     title: 'Verify & Continue',
                     loading: _loading,
                     onTap: _handleVerify,
                   ),
-
                   const SizedBox(height: 28),
 
                   Row(
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
-                      Text(
-                        "Didn't receive the code? ",
-                        style: AppTextStyles.subHeading,
-                      ),
+                      Text("Didn't receive the code? ", style: t.subHeading),
                       if (_secondsLeft > 0)
                         Text(
                           '0:${_secondsLeft.toString().padLeft(2, '0')}',
-                          style: const TextStyle(
+                          style: GoogleFonts.inter(
                             color: AppColors.orange,
                             fontWeight: FontWeight.w700,
                             fontSize: 14,
@@ -219,9 +216,9 @@ class _OtpScreenState extends State<OtpScreen>
                             _secondsLeft = 59;
                             _startCountdown();
                           }),
-                          child: const Text(
+                          child: Text(
                             'Resend',
-                            style: TextStyle(
+                            style: GoogleFonts.inter(
                               color: AppColors.orange,
                               fontWeight: FontWeight.w700,
                               fontSize: 14,

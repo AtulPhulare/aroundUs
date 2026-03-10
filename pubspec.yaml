@@ -31,3 +31,15 @@ dev_dependencies:
 
 flutter:
   uses-material-design: true
+
+  fonts:
+    - family: Sora
+      fonts:
+        - asset: assets/fonts/Sora/static/Sora-Thin.ttf
+        - asset: assets/fonts/Sora/static/Sora-ExtraLight.ttf
+        - asset: assets/fonts/Sora/static/Sora-Light.ttf
+        - asset: assets/fonts/Sora/static/Sora-Regular.ttf
+        - asset: assets/fonts/Sora/static/Sora-Medium.ttf
+        - asset: assets/fonts/Sora/static/Sora-SemiBold.ttf
+        - asset: assets/fonts/Sora/static/Sora-Bold.ttf
+        - asset: assets/font/Sora/static/Sora-ExtraBold.ttf

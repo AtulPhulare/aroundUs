@@ -9,8 +9,10 @@ class NotificationScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final c = AppColors.of(context);
+    final t = AppTextStyles.of(context);
     return Scaffold(
-      backgroundColor: AppColors.background,
+      backgroundColor: c.background,
       body: SafeArea(
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
@@ -22,12 +24,9 @@ class NotificationScreen extends StatelessWidget {
                 children: [
                   Text(
                     'Notifications',
-                    style: AppTextStyles.heading.copyWith(fontSize: 28),
+                    style: t.heading.copyWith(fontSize: 28),
                   ),
-                  Text(
-                    'Stay up to date with your groups',
-                    style: AppTextStyles.subHeading,
-                  ),
+                  Text('Stay up to date with your groups', style: t.subHeading),
                 ],
               ),
             ),
@@ -90,12 +89,12 @@ class NotificationScreen extends StatelessWidget {
           padding: const EdgeInsets.only(bottom: 10),
           child: Text(
             label,
-            style: AppTextStyles.body.copyWith(
-              fontSize: 12,
-              fontWeight: FontWeight.w700,
-              color: AppColors.muted,
-              letterSpacing: 0.5,
-            ),
+            // style: AppTextStyles.body.copyWith(
+            //   fontSize: 12,
+            //   fontWeight: FontWeight.w700,
+            //   color: AppColors.dark.textSecondary,
+            //   letterSpacing: 0.5,
+            // ),
           ),
         ),
         ...items.map(
@@ -133,19 +132,17 @@ class _NotifCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final c = AppColors.of(context);
+    final t = AppTextStyles.of(context);
     return GestureDetector(
       onTap: data.onTap,
       child: Container(
         padding: const EdgeInsets.all(16),
         decoration: BoxDecoration(
-          color: AppColors.surface,
+          color: c.surface,
           borderRadius: BorderRadius.circular(18),
-          boxShadow: const [
-            BoxShadow(
-              color: AppColors.shadow,
-              blurRadius: 10,
-              offset: Offset(0, 3),
-            ),
+          boxShadow: [
+            BoxShadow(color: c.shadow, blurRadius: 10, offset: Offset(0, 3)),
           ],
         ),
         child: Row(
@@ -157,7 +154,7 @@ class _NotifCard extends StatelessWidget {
                 color: data.color,
                 borderRadius: BorderRadius.circular(14),
               ),
-              child: Icon(data.icon, color: AppColors.dark, size: 22),
+              child: Icon(data.icon, color: c.textPrimary, size: 22),
             ),
             const SizedBox(width: 14),
             Expanded(
@@ -166,7 +163,7 @@ class _NotifCard extends StatelessWidget {
                 children: [
                   Text(
                     data.title,
-                    style: AppTextStyles.body.copyWith(
+                    style: t.body.copyWith(
                       fontSize: 14,
                       fontWeight: FontWeight.w700,
                     ),
@@ -174,17 +171,14 @@ class _NotifCard extends StatelessWidget {
                   const SizedBox(height: 3),
                   Text(
                     data.subtitle,
-                    style: AppTextStyles.subHeading.copyWith(fontSize: 12),
+                    style: t.subHeading.copyWith(fontSize: 12),
                     overflow: TextOverflow.ellipsis,
                   ),
                 ],
               ),
             ),
             const SizedBox(width: 8),
-            Text(
-              data.time,
-              style: AppTextStyles.subHeading.copyWith(fontSize: 11),
-            ),
+            Text(data.time, style: t.subHeading.copyWith(fontSize: 11)),
           ],
         ),
       ),

@@ -6,19 +6,18 @@ class DividerWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final c = AppColors.of(context);
     return Row(
-      children: const [
-        Expanded(child: Divider(color: AppColors.border)),
-
+      children: [
+        Expanded(child: Divider(color: c.border)),
         Padding(
-          padding: EdgeInsets.symmetric(horizontal: 14),
+          padding: const EdgeInsets.symmetric(horizontal: 14),
           child: Text(
-            "or",
-            style: TextStyle(color: AppColors.muted, fontSize: 13),
+            'or',
+            style: TextStyle(color: c.textSecondary, fontSize: 13),
           ),
         ),
-
-        Expanded(child: Divider(color: AppColors.border)),
+        Expanded(child: Divider(color: c.border)),
       ],
     );
   }

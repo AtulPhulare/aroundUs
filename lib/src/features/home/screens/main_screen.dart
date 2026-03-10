@@ -1,4 +1,5 @@
 import 'package:around_us/src/utils/theme/app_colors.dart';
+import 'package:around_us/src/utils/theme/app_text_styles.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import '../../community/screens/explore_screen.dart';
@@ -24,20 +25,17 @@ class MainScreen extends StatelessWidget {
       const NotificationScreen(),
       const ProfileScreen(),
     ];
-
+    final c = AppColors.of(context);
+    final t = AppTextStyles.of(context);
     return Scaffold(
-      backgroundColor: AppColors.background,
+      backgroundColor: c.background,
       body: Obx(() => screens[ctrl.currentIndex.value]),
       bottomNavigationBar: Obx(
         () => Container(
-          decoration: const BoxDecoration(
-            color: AppColors.surface,
+          decoration: BoxDecoration(
+            color: c.surface,
             boxShadow: [
-              BoxShadow(
-                color: AppColors.shadow,
-                blurRadius: 12,
-                offset: Offset(0, -2),
-              ),
+              BoxShadow(color: c.shadow, blurRadius: 12, offset: Offset(0, -2)),
             ],
           ),
           child: NavigationBar(
@@ -77,7 +75,7 @@ class MainScreen extends StatelessWidget {
     String label,
   ) {
     return NavigationDestination(
-      icon: Icon(unselected, color: AppColors.muted),
+      icon: Icon(unselected, color: AppColors.dark.background),
       selectedIcon: Icon(selected, color: AppColors.orange),
       label: label,
     );

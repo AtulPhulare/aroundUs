@@ -6,11 +6,12 @@ class SignupLinkWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final c = AppColors.of(context);
     return Center(
       child: RichText(
-        text: const TextSpan(
+        text: TextSpan(
           text: "New here? ",
-          style: TextStyle(color: AppColors.muted, fontSize: 14),
+          style: TextStyle(color: c.textSecondary, fontSize: 14),
           children: [
             TextSpan(
               text: "Create account",

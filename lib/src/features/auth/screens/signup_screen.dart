@@ -78,8 +78,11 @@ class _SignupScreenState extends State<SignupScreen>
 
   @override
   Widget build(BuildContext context) {
+    final c = AppColors.of(context);
+    final t = AppTextStyles.of(context);
+
     return Scaffold(
-      backgroundColor: AppColors.background,
+      backgroundColor: c.background,
       body: SafeArea(
         child: FadeTransition(
           opacity: _fade,
@@ -94,13 +97,9 @@ class _SignupScreenState extends State<SignupScreen>
                   const LogoWidget(),
                   const SizedBox(height: 36),
 
-                  Text('Create Account', style: AppTextStyles.heading),
+                  Text('Create Account', style: t.heading),
                   const SizedBox(height: 6),
-                  Text(
-                    'Join your local community today',
-                    style: AppTextStyles.subHeading,
-                  ),
-
+                  Text('Join your local community today', style: t.subHeading),
                   const SizedBox(height: 36),
 
                   CommonTextField(
@@ -127,7 +126,7 @@ class _SignupScreenState extends State<SignupScreen>
                         _obscure
                             ? Icons.visibility_off_outlined
                             : Icons.visibility_outlined,
-                        color: AppColors.muted,
+                        color: c.textSecondary,
                         size: 20,
                       ),
                     ),
@@ -135,17 +134,14 @@ class _SignupScreenState extends State<SignupScreen>
 
                   const SizedBox(height: 28),
 
-                  // Interests Section
                   Text(
                     'Pick your interests',
-                    style: AppTextStyles.body.copyWith(
-                      fontWeight: FontWeight.w700,
-                    ),
+                    style: t.body.copyWith(fontWeight: FontWeight.w700),
                   ),
                   const SizedBox(height: 4),
                   Text(
                     'Help us find the right groups for you',
-                    style: AppTextStyles.subHeading,
+                    style: t.subHeading,
                   ),
                   const SizedBox(height: 14),
 
@@ -153,17 +149,13 @@ class _SignupScreenState extends State<SignupScreen>
                     spacing: 8,
                     runSpacing: 8,
                     children: _allInterests.map((tag) {
-                      final isSelected = _selected.contains(tag);
+                      final isSel = _selected.contains(tag);
                       return GestureDetector(
-                        onTap: () {
-                          setState(() {
-                            if (isSelected) {
-                              _selected.remove(tag);
-                            } else {
-                              _selected.add(tag);
-                            }
-                          });
-                        },
+                        onTap: () => setState(
+                          () => isSel
+                              ? _selected.remove(tag)
+                              : _selected.add(tag),
+                        ),
                         child: AnimatedContainer(
                           duration: const Duration(milliseconds: 200),
                           padding: const EdgeInsets.symmetric(
@@ -171,19 +163,19 @@ class _SignupScreenState extends State<SignupScreen>
                             vertical: 8,
                           ),
                           decoration: BoxDecoration(
-                            color: isSelected
-                                ? AppColors.orange
-                                : AppColors.surface,
+                            color: isSel ? AppColors.orange : c.surface,
                             borderRadius: BorderRadius.circular(24),
                             border: Border.all(
-                              color: isSelected
+                              color: isSel
                                   ? AppColors.orange
-                                  : AppColors.hint.withOpacity(0.3),
+                                  : c.textHint.withValues(alpha: 0.3),
                             ),
-                            boxShadow: isSelected
+                            boxShadow: isSel
                                 ? [
                                     BoxShadow(
-                                      color: AppColors.orange.withOpacity(0.2),
+                                      color: AppColors.orange.withValues(
+                                        alpha: 0.2,
+                                      ),
                                       blurRadius: 8,
                                       offset: const Offset(0, 3),
                                     ),
@@ -195,7 +187,7 @@ class _SignupScreenState extends State<SignupScreen>
                             style: TextStyle(
                               fontSize: 13,
                               fontWeight: FontWeight.w600,
-                              color: isSelected ? Colors.white : AppColors.dark,
+                              color: isSel ? Colors.white : c.textPrimary,
                             ),
                           ),
                         ),
@@ -210,16 +202,12 @@ class _SignupScreenState extends State<SignupScreen>
                     loading: _loading,
                     onTap: _handleSignup,
                   ),
-
                   const SizedBox(height: 20),
 
                   Row(
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
-                      Text(
-                        'Already have an account?',
-                        style: AppTextStyles.subHeading,
-                      ),
+                      Text('Already have an account?', style: t.subHeading),
                       TextButton(
                         onPressed: () => Get.back(),
                         child: const Text(
