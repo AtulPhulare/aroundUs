@@ -1,0 +1,158 @@
+﻿Local Interest Group App – Around Us
+
+
+📘 1. Project Overview
+Around Us is a location-based social app that helps people connect with others who share similar interests nearby.
+Users can create, discover, and join local groups related to hobbies, sports, activities, or community events.
+Example: A user in Kandivali can create a group like “Volleyball in Kandivali”, allowing nearby players to join and chat.
+________________
+
+
+🎯 2. Objectives
+* Help users connect with people having similar interests nearby.
+
+* Enable users to create and join local groups.
+
+* Encourage real-world social interaction through communities.
+
+________________
+
+
+👥 3. Target Audience
+   * People looking for hobby or activity partners.
+
+   * Local clubs, sports teams, and community groups.
+
+   * Travelers or new residents who want to meet locals.
+
+________________
+
+
+⚙️ 4. Key Features (MVP)
+1. User Authentication
+      * Login / Signup using Email, Google, or Phone OTP.
+
+      * Basic user profile: name, avatar, bio, interests.
+
+2. Create & Manage Groups
+Users can create groups with:
+         * Group name
+
+         * Description
+
+         * Category (Sports, Travel, Art, etc.)
+
+         * Location
+
+         * Public / Private visibility
+
+The creator becomes the group admin.
+3. Group Discovery
+Users can explore groups by:
+            * Nearby location
+
+            * Category
+
+            * Search and filters
+
+4. Join Groups
+               * Public groups → Join instantly
+
+               * Private groups → Request approval
+
+5. Group Chat
+                  * Real-time chat using Firestore
+
+                  * Send text messages and images
+
+                  * Display timestamps and sender details
+
+6. Notifications
+                     * New messages
+
+                     * New members joining groups
+
+                     * Nearby group recommendations (optional)
+
+________________
+
+
+🗄️ 5. Tech Stack
+Component
+	Technology
+	Frontend
+	Flutter
+	State Management
+	GetX
+	Backend / Database
+	Firebase
+	Authentication
+	Firebase
+	Storage
+	Firebase
+	Notifications
+	Firebase Cloud Messaging
+	Location
+	Geolocator + Geocoding
+	Maps (Future)
+	Google Maps Flutter
+	________________
+
+
+🧭 6. App Flow
+Open App
+  ↓
+Login / Signup
+  ↓
+Profile Setup
+  ↓
+Explore Groups
+  ↓
+Select Group
+  ↓
+Join Group / Request Access
+  ↓
+Group Chat
+Create Group Flow:
+Home Screen
+  ↓
+Create Group
+  ↓
+Add Group Details
+  ↓
+Group Created
+  ↓
+Invite Members
+________________
+
+
+📱 7. Main Screens
+                        * Login / OTP Screen
+
+                        * Signup Screen
+
+                        * Explore Screen (Nearby Groups)
+
+                        * Group List Screen
+
+                        * Group Chat Screen
+
+                        * Profile Screen
+
+                        * Feed Screen (Future)
+
+________________
+
+
+🚀 8. Future Enhancements
+                           * Map-based group discovery
+
+                           * Event creation inside groups
+
+                           * Group post feed
+
+                           * AI-based group recommendations
+
+                           * Voice/video chat
+
+                           * Group verification system

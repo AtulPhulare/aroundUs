@@ -1,0 +1,33 @@
+name: around_us
+description: "A new Flutter project."
+publish_to: 'none'
+version: 0.1.0
+
+environment:
+  sdk: ^3.9.2
+
+dependencies:
+  flutter:
+    sdk: flutter
+  get: ^4.6.6
+  firebase_core: ^3.10.1
+  firebase_auth: ^5.4.4
+  cloud_firestore: ^5.6.1
+  firebase_messaging: ^15.2.10
+  firebase_storage: ^12.3.10
+  geolocator: ^13.0.1
+  geocoding: ^3.0.0
+  shared_preferences: ^2.5.2
+  logger: ^2.5.0
+  connectivity_plus: ^6.1.1
+  socket_io_client: ^3.0.2
+  google_fonts: ^6.2.1
+  flutter_local_notifications: ^18.0.1
+
+dev_dependencies:
+  flutter_test:
+    sdk: flutter
+  flutter_lints: ^5.0.0
+
+flutter:
+  uses-material-design: true
