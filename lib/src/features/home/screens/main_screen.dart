@@ -32,18 +32,22 @@ class MainScreen extends StatelessWidget {
       body: Obx(() => screens[ctrl.currentIndex.value]),
       bottomNavigationBar: Obx(
         () => Container(
+          height: 84,
           decoration: BoxDecoration(
-            color: c.surface,
-            boxShadow: [
-              BoxShadow(color: c.shadow, blurRadius: 12, offset: Offset(0, -2)),
-            ],
+            color: c.background,
+            border: Border(
+              top: BorderSide(
+                color: Colors.white.withValues(alpha: 0.05),
+                width: 0.5,
+              ),
+            ),
           ),
           child: NavigationBar(
             selectedIndex: ctrl.currentIndex.value,
             onDestinationSelected: ctrl.changePage,
             backgroundColor: Colors.transparent,
             elevation: 0,
-            indicatorColor: AppColors.orangeLight,
+            indicatorColor: AppColors.orange.withValues(alpha: 0.1),
             labelBehavior: NavigationDestinationLabelBehavior.alwaysShow,
             destinations: [
               _navDest(
@@ -75,8 +79,8 @@ class MainScreen extends StatelessWidget {
     String label,
   ) {
     return NavigationDestination(
-      icon: Icon(unselected, color: AppColors.dark.background),
-      selectedIcon: Icon(selected, color: AppColors.orange),
+      icon: Icon(unselected, color: const Color(0x61FFFFFF)),
+      selectedIcon: Icon(selected, color: AppColors.orangeStart),
       label: label,
     );
   }

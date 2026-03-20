@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:google_fonts/google_fonts.dart';
 import 'app_colors.dart';
 
 /// Full light + dark ThemeData for Around Us.
@@ -32,27 +31,27 @@ class AppTheme {
         ? ThemeData.dark(useMaterial3: true)
         : ThemeData.light(useMaterial3: true);
 
-    final bodyFont = GoogleFonts.interTextTheme(base.textTheme);
-    final displayFont = GoogleFonts.outfitTextTheme(base.textTheme);
-
-    final textTheme = bodyFont.copyWith(
-      displayLarge: displayFont.displayLarge?.copyWith(color: c.textPrimary),
-      displayMedium: displayFont.displayMedium?.copyWith(color: c.textPrimary),
-      displaySmall: displayFont.displaySmall?.copyWith(color: c.textPrimary),
-      headlineLarge: displayFont.headlineLarge?.copyWith(color: c.textPrimary),
-      headlineMedium: displayFont.headlineMedium?.copyWith(
-        color: c.textPrimary,
+    final textTheme = base.textTheme.apply(
+      fontFamily: 'Sora',
+      displayColor: c.textPrimary,
+      bodyColor: c.textPrimary,
+    ).copyWith(
+      bodyMedium: base.textTheme.bodyMedium?.copyWith(
+        color: c.textSecondary,
+        fontFamily: 'Sora',
       ),
-      headlineSmall: displayFont.headlineSmall?.copyWith(color: c.textPrimary),
-      titleLarge: displayFont.titleLarge?.copyWith(color: c.textPrimary),
-      titleMedium: bodyFont.titleMedium?.copyWith(color: c.textPrimary),
-      titleSmall: bodyFont.titleSmall?.copyWith(color: c.textPrimary),
-      bodyLarge: bodyFont.bodyLarge?.copyWith(color: c.textPrimary),
-      bodyMedium: bodyFont.bodyMedium?.copyWith(color: c.textSecondary),
-      bodySmall: bodyFont.bodySmall?.copyWith(color: c.textHint),
-      labelLarge: bodyFont.labelLarge?.copyWith(color: c.textPrimary),
-      labelMedium: bodyFont.labelMedium?.copyWith(color: c.textSecondary),
-      labelSmall: bodyFont.labelSmall?.copyWith(color: c.textHint),
+      bodySmall: base.textTheme.bodySmall?.copyWith(
+        color: c.textHint,
+        fontFamily: 'Sora',
+      ),
+      labelMedium: base.textTheme.labelMedium?.copyWith(
+        color: c.textSecondary,
+        fontFamily: 'Sora',
+      ),
+      labelSmall: base.textTheme.labelSmall?.copyWith(
+        color: c.textHint,
+        fontFamily: 'Sora',
+      ),
     );
 
     return base.copyWith(
@@ -82,11 +81,11 @@ class AppTheme {
         surfaceTintColor: Colors.transparent,
         shadowColor: Colors.transparent,
         foregroundColor: c.textPrimary,
-        titleTextStyle: GoogleFonts.outfit(
+        titleTextStyle: const TextStyle(
+          fontFamily: 'Sora',
           fontSize: 18,
           fontWeight: FontWeight.w700,
-          color: c.textPrimary,
-        ),
+        ).copyWith(color: c.textPrimary),
       ),
 
       navigationBarTheme: NavigationBarThemeData(
@@ -94,7 +93,8 @@ class AppTheme {
         elevation: 0,
         indicatorColor: AppColors.orangeLight,
         labelTextStyle: WidgetStatePropertyAll(
-          GoogleFonts.inter(
+          TextStyle(
+            fontFamily: 'Sora',
             fontSize: 11,
             fontWeight: FontWeight.w600,
             color: c.textSecondary,
@@ -110,7 +110,8 @@ class AppTheme {
           shape: RoundedRectangleBorder(
             borderRadius: BorderRadius.circular(16),
           ),
-          textStyle: GoogleFonts.inter(
+          textStyle: const TextStyle(
+            fontFamily: 'Sora',
             fontSize: 16,
             fontWeight: FontWeight.w700,
           ),
@@ -132,12 +133,17 @@ class AppTheme {
           borderRadius: BorderRadius.circular(16),
           borderSide: const BorderSide(color: AppColors.orange, width: 1.5),
         ),
-        hintStyle: GoogleFonts.inter(fontSize: 14, color: c.textHint),
+        hintStyle: TextStyle(
+          fontFamily: 'Sora',
+          fontSize: 14,
+          color: c.textHint,
+        ),
       ),
 
       chipTheme: ChipThemeData(
         backgroundColor: c.surface,
-        labelStyle: GoogleFonts.inter(
+        labelStyle: TextStyle(
+          fontFamily: 'Sora',
           fontSize: 13,
           fontWeight: FontWeight.w600,
           color: c.textPrimary,

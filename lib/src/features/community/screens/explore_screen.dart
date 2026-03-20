@@ -1,8 +1,8 @@
+import 'package:around_us/src/utils/common/common_text_field.dart';
 import 'package:around_us/src/utils/theme/app_colors.dart';
 import 'package:around_us/src/utils/theme/app_text_styles.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:google_fonts/google_fonts.dart';
 import '../../../routes/app_routes.dart';
 
 class _GroupData {
@@ -140,15 +140,12 @@ class _ExploreScreenState extends State<ExploreScreen> {
                       height: 48,
                       width: 48,
                       decoration: BoxDecoration(
-                        color: AppColors.orange,
+                        gradient: const LinearGradient(
+                          colors: [AppColors.orangeStart, AppColors.orangeEnd],
+                          begin: Alignment.topLeft,
+                          end: Alignment.bottomRight,
+                        ),
                         borderRadius: BorderRadius.circular(14),
-                        boxShadow: [
-                          BoxShadow(
-                            color: AppColors.orange.withValues(alpha: 0.35),
-                            blurRadius: 12,
-                            offset: const Offset(0, 4),
-                          ),
-                        ],
                       ),
                       child: const Icon(Icons.add_rounded, color: Colors.white),
                     ),
@@ -161,37 +158,10 @@ class _ExploreScreenState extends State<ExploreScreen> {
             // Search
             Padding(
               padding: const EdgeInsets.symmetric(horizontal: 24),
-              child: Container(
-                decoration: BoxDecoration(
-                  color: c.inputFill,
-                  borderRadius: BorderRadius.circular(16),
-                  boxShadow: [
-                    BoxShadow(
-                      color: c.shadow,
-                      blurRadius: 8,
-                      offset: const Offset(0, 2),
-                    ),
-                  ],
-                ),
-                child: TextField(
-                  controller: _searchCtrl,
-                  onChanged: (v) => setState(() => _query = v),
-                  style: GoogleFonts.inter(fontSize: 14, color: c.textPrimary),
-                  decoration: InputDecoration(
-                    hintText: 'Search groups near you...',
-                    hintStyle: GoogleFonts.inter(
-                      color: c.textHint,
-                      fontSize: 14,
-                    ),
-                    prefixIcon: Icon(
-                      Icons.search_rounded,
-                      color: c.textSecondary,
-                      size: 22,
-                    ),
-                    border: InputBorder.none,
-                    contentPadding: const EdgeInsets.symmetric(vertical: 16),
-                  ),
-                ),
+              child: CommonTextField(
+                controller: _searchCtrl,
+                hint: 'Search groups near you...',
+                icon: Icons.search_rounded,
               ),
             ),
             const SizedBox(height: 16),
@@ -215,29 +185,18 @@ class _ExploreScreenState extends State<ExploreScreen> {
                         vertical: 8,
                       ),
                       decoration: BoxDecoration(
-                        color: isSel ? AppColors.orange : c.surface,
+                        color: isSel ? AppColors.orange : c.card,
                         borderRadius: BorderRadius.circular(24),
-                        boxShadow: isSel
-                            ? [
-                                BoxShadow(
-                                  color: AppColors.orange.withValues(
-                                    alpha: 0.3,
-                                  ),
-                                  blurRadius: 8,
-                                  offset: const Offset(0, 3),
-                                ),
-                              ]
-                            : [
-                                BoxShadow(
-                                  color: c.shadow,
-                                  blurRadius: 6,
-                                  offset: const Offset(0, 2),
-                                ),
-                              ],
+                        border: Border.all(
+                          color: isSel
+                              ? AppColors.orange
+                              : Colors.white.withValues(alpha: 0.05),
+                          width: 0.5,
+                        ),
                       ),
                       child: Text(
                         _categories[i],
-                        style: GoogleFonts.inter(
+                        style: TextStyle(fontFamily: 'Sora', 
                           fontSize: 13,
                           fontWeight: FontWeight.w600,
                           color: isSel ? Colors.white : c.textSecondary,
@@ -282,13 +241,10 @@ class _GroupCard extends StatelessWidget {
         decoration: BoxDecoration(
           color: c.card,
           borderRadius: BorderRadius.circular(20),
-          boxShadow: [
-            BoxShadow(
-              color: c.shadow,
-              blurRadius: 10,
-              offset: const Offset(0, 4),
-            ),
-          ],
+          border: Border.all(
+            color: Colors.white.withValues(alpha: 0.05),
+            width: 0.5,
+          ),
         ),
         child: Row(
           children: [
@@ -296,8 +252,12 @@ class _GroupCard extends StatelessWidget {
               width: 58,
               height: 58,
               decoration: BoxDecoration(
-                color: group.tagColor,
+                color: group.tagColor.withValues(alpha: 0.1),
                 borderRadius: BorderRadius.circular(16),
+                border: Border.all(
+                  color: group.tagColor.withValues(alpha: 0.2),
+                  width: 1,
+                ),
               ),
               child: Center(
                 child: Text(group.emoji, style: const TextStyle(fontSize: 26)),
@@ -310,10 +270,11 @@ class _GroupCard extends StatelessWidget {
                 children: [
                   Text(
                     group.name,
-                    style: GoogleFonts.inter(
+                    style: const TextStyle(
+                      fontFamily: 'Sora',
                       fontSize: 15,
                       fontWeight: FontWeight.w700,
-                      color: c.textPrimary,
+                      color: Colors.white,
                     ),
                   ),
                   const SizedBox(height: 4),
@@ -328,7 +289,7 @@ class _GroupCard extends StatelessWidget {
                       Expanded(
                         child: Text(
                           group.location,
-                          style: GoogleFonts.inter(
+                          style: TextStyle(fontFamily: 'Sora', 
                             fontSize: 12,
                             color: c.textSecondary,
                           ),
@@ -351,7 +312,7 @@ class _GroupCard extends StatelessWidget {
                         ),
                         child: Text(
                           group.category,
-                          style: GoogleFonts.inter(
+                          style: TextStyle(fontFamily: 'Sora', 
                             fontSize: 11,
                             fontWeight: FontWeight.w600,
                             color: c.textPrimary,
@@ -367,7 +328,7 @@ class _GroupCard extends StatelessWidget {
                       const SizedBox(width: 3),
                       Text(
                         '${group.members} members',
-                        style: GoogleFonts.inter(
+                        style: TextStyle(fontFamily: 'Sora', 
                           fontSize: 12,
                           color: c.textSecondary,
                         ),
@@ -381,16 +342,21 @@ class _GroupCard extends StatelessWidget {
               height: 36,
               padding: const EdgeInsets.symmetric(horizontal: 14),
               decoration: BoxDecoration(
-                color: AppColors.orangeLight,
+                color: AppColors.orange.withValues(alpha: 0.1),
                 borderRadius: BorderRadius.circular(10),
+                border: Border.all(
+                  color: AppColors.orange.withValues(alpha: 0.2),
+                  width: 1,
+                ),
               ),
-              child: Center(
+              child: const Center(
                 child: Text(
                   'Join',
-                  style: GoogleFonts.inter(
+                  style: TextStyle(
+                    fontFamily: 'Sora',
                     fontSize: 13,
                     fontWeight: FontWeight.w700,
-                    color: AppColors.orange,
+                    color: AppColors.orangeStart,
                   ),
                 ),
               ),

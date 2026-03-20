@@ -28,7 +28,7 @@ class MyApp extends StatelessWidget {
     return GetMaterialApp(
       debugShowCheckedModeBanner: false,
       title: 'Around Us',
-      theme: ThemeData(fontFamily: 'Sora'),
+      theme: AppTheme.dark,
       darkTheme: AppTheme.dark,
       themeMode: ThemeMode.system,
       initialRoute: AppRoutes.splash,

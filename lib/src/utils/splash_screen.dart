@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:google_fonts/google_fonts.dart';
 import '../routes/app_routes.dart';
 import 'theme/app_colors.dart';
 
@@ -120,15 +119,12 @@ class _SplashScreenState extends State<SplashScreen>
                           width: 88,
                           height: 88,
                           decoration: BoxDecoration(
-                            color: AppColors.orangeLight,
+                            color: AppColors.orange.withValues(alpha: 0.1),
                             shape: BoxShape.circle,
-                            boxShadow: [
-                              BoxShadow(
-                                color: AppColors.orange.withValues(alpha: 0.25),
-                                blurRadius: 32,
-                                offset: const Offset(0, 10),
-                              ),
-                            ],
+                            border: Border.all(
+                              color: AppColors.orange.withValues(alpha: 0.2),
+                              width: 1,
+                            ),
                           ),
                           child: const Icon(
                             Icons.location_on_rounded,
@@ -137,13 +133,14 @@ class _SplashScreenState extends State<SplashScreen>
                           ),
                         ),
                         const SizedBox(height: 20),
-                        Text(
+                        const Text(
                           'around us',
-                          style: GoogleFonts.outfit(
+                          style: TextStyle(
+                            fontFamily: 'Sora',
                             fontSize: 44,
                             fontWeight: FontWeight.w900,
                             letterSpacing: -2,
-                            color: c.textPrimary,
+                            color: Colors.white,
                             height: 1,
                           ),
                         ),
@@ -178,12 +175,13 @@ class _SplashScreenState extends State<SplashScreen>
                   opacity: _taglineFade,
                   child: Column(
                     children: [
-                      Text(
+                      const Text(
                         'Find people who share your vibe, nearby.',
                         textAlign: TextAlign.center,
-                        style: GoogleFonts.inter(
+                        style: TextStyle(
+                          fontFamily: 'Sora',
                           fontSize: 14,
-                          color: c.textSecondary,
+                          color: Colors.white70,
                           height: 1.5,
                         ),
                       ),
@@ -213,18 +211,20 @@ class _InterestChip extends StatelessWidget {
     return Container(
       padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 9),
       decoration: BoxDecoration(
-        color: c.surface,
+        color: c.card,
         borderRadius: BorderRadius.circular(24),
-        boxShadow: [
-          BoxShadow(color: c.shadow, blurRadius: 8, offset: const Offset(0, 3)),
-        ],
+        border: Border.all(
+          color: Colors.white.withValues(alpha: 0.05),
+          width: 0.5,
+        ),
       ),
       child: Text(
         label,
-        style: GoogleFonts.inter(
+        style: const TextStyle(
+          fontFamily: 'Sora',
           fontSize: 13,
           fontWeight: FontWeight.w600,
-          color: c.textPrimary,
+          color: Colors.white,
         ),
       ),
     );

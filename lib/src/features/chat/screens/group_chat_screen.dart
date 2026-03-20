@@ -1,7 +1,6 @@
 import 'package:around_us/src/utils/theme/app_colors.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:google_fonts/google_fonts.dart';
 
 class _Message {
   final String text;
@@ -113,7 +112,7 @@ class _GroupChatScreenState extends State<GroupChatScreen> {
               children: [
                 Text(
                   'Volleyball in Kandivali',
-                  style: GoogleFonts.inter(
+                  style: TextStyle(fontFamily: 'Sora', 
                     fontSize: 14,
                     fontWeight: FontWeight.w700,
                     color: c.textPrimary,
@@ -121,7 +120,7 @@ class _GroupChatScreenState extends State<GroupChatScreen> {
                 ),
                 Text(
                   '28 members',
-                  style: GoogleFonts.inter(
+                  style: TextStyle(fontFamily: 'Sora', 
                     fontSize: 11,
                     color: c.textSecondary,
                   ),
@@ -160,13 +159,13 @@ class _GroupChatScreenState extends State<GroupChatScreen> {
                     ),
                     child: TextField(
                       controller: _msgCtrl,
-                      style: GoogleFonts.inter(
+                      style: TextStyle(fontFamily: 'Sora', 
                         fontSize: 14,
                         color: c.textPrimary,
                       ),
                       decoration: InputDecoration(
                         hintText: 'Type a message...',
-                        hintStyle: GoogleFonts.inter(
+                        hintStyle: TextStyle(fontFamily: 'Sora', 
                           color: c.textHint,
                           fontSize: 14,
                         ),
@@ -233,7 +232,7 @@ class _Bubble extends StatelessWidget {
               padding: const EdgeInsets.only(left: 4, bottom: 4),
               child: Text(
                 message.sender,
-                style: GoogleFonts.inter(
+                style: TextStyle(fontFamily: 'Sora', 
                   fontSize: 11,
                   fontWeight: FontWeight.w600,
                   color: c.textSecondary,
@@ -252,7 +251,7 @@ class _Bubble extends StatelessWidget {
                   backgroundColor: AppColors.tagBlue,
                   child: Text(
                     message.sender[0],
-                    style: GoogleFonts.inter(
+                    style: TextStyle(fontFamily: 'Sora', 
                       fontSize: 12,
                       fontWeight: FontWeight.w700,
                       color: c.textPrimary,
@@ -285,7 +284,7 @@ class _Bubble extends StatelessWidget {
                   ),
                   child: Text(
                     message.text,
-                    style: GoogleFonts.inter(
+                    style: TextStyle(fontFamily: 'Sora', 
                       fontSize: 14,
                       fontWeight: FontWeight.w500,
                       color: message.isMine ? Colors.white : c.textPrimary,
@@ -300,7 +299,7 @@ class _Bubble extends StatelessWidget {
             padding: const EdgeInsets.symmetric(horizontal: 4),
             child: Text(
               message.time,
-              style: GoogleFonts.inter(fontSize: 10, color: c.textSecondary),
+              style: TextStyle(fontFamily: 'Sora', fontSize: 10, color: c.textSecondary),
             ),
           ),
         ],

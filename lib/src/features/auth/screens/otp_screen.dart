@@ -3,7 +3,6 @@ import 'package:around_us/src/utils/theme/app_colors.dart';
 import 'package:around_us/src/utils/theme/app_text_styles.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:google_fonts/google_fonts.dart';
 import '../../../routes/app_routes.dart';
 
 class OtpScreen extends StatefulWidget {
@@ -108,19 +107,16 @@ class _OtpScreenState extends State<OtpScreen>
                       height: 44,
                       width: 44,
                       decoration: BoxDecoration(
-                        color: c.surface,
+                        color: c.card,
                         borderRadius: BorderRadius.circular(12),
-                        boxShadow: [
-                          BoxShadow(
-                            color: c.shadow,
-                            blurRadius: 8,
-                            offset: const Offset(0, 2),
-                          ),
-                        ],
+                        border: Border.all(
+                          color: Colors.white.withValues(alpha: 0.05),
+                          width: 0.5,
+                        ),
                       ),
-                      child: Icon(
+                      child: const Icon(
                         Icons.arrow_back_rounded,
-                        color: c.textPrimary,
+                        color: Colors.white,
                         size: 20,
                       ),
                     ),
@@ -131,13 +127,17 @@ class _OtpScreenState extends State<OtpScreen>
                     height: 72,
                     width: 72,
                     decoration: BoxDecoration(
-                      color: AppColors.orangeLight,
+                      color: AppColors.orange.withValues(alpha: 0.1),
                       borderRadius: BorderRadius.circular(20),
+                      border: Border.all(
+                        color: AppColors.orange.withValues(alpha: 0.2),
+                        width: 1,
+                      ),
                     ),
                     child: const Icon(
                       Icons.message_rounded,
                       color: AppColors.orange,
-                      size: 36,
+                      size: 32,
                     ),
                   ),
                   const SizedBox(height: 24),
@@ -163,10 +163,11 @@ class _OtpScreenState extends State<OtpScreen>
                           textAlign: TextAlign.center,
                           maxLength: 1,
                           onChanged: (v) => _onChanged(v, i),
-                          style: GoogleFonts.outfit(
+                          style: const TextStyle(
+                            fontFamily: 'Sora',
                             fontSize: 22,
                             fontWeight: FontWeight.w800,
-                            color: c.textPrimary,
+                            color: Colors.white,
                           ),
                           decoration: InputDecoration(
                             counterText: '',
@@ -174,13 +175,16 @@ class _OtpScreenState extends State<OtpScreen>
                             fillColor: c.inputFill,
                             border: OutlineInputBorder(
                               borderRadius: BorderRadius.circular(14),
-                              borderSide: BorderSide.none,
+                              borderSide: BorderSide(
+                                color: Colors.white.withValues(alpha: 0.05),
+                                width: 0.5,
+                              ),
                             ),
                             focusedBorder: OutlineInputBorder(
                               borderRadius: BorderRadius.circular(14),
                               borderSide: const BorderSide(
                                 color: AppColors.orange,
-                                width: 2,
+                                width: 1.5,
                               ),
                             ),
                           ),
@@ -204,7 +208,7 @@ class _OtpScreenState extends State<OtpScreen>
                       if (_secondsLeft > 0)
                         Text(
                           '0:${_secondsLeft.toString().padLeft(2, '0')}',
-                          style: GoogleFonts.inter(
+                          style: TextStyle(fontFamily: 'Sora', 
                             color: AppColors.orange,
                             fontWeight: FontWeight.w700,
                             fontSize: 14,
@@ -218,7 +222,7 @@ class _OtpScreenState extends State<OtpScreen>
                           }),
                           child: Text(
                             'Resend',
-                            style: GoogleFonts.inter(
+                            style: const TextStyle(fontFamily: 'Sora',
                               color: AppColors.orange,
                               fontWeight: FontWeight.w700,
                               fontSize: 14,

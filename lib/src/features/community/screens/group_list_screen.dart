@@ -2,7 +2,6 @@ import 'package:around_us/src/utils/theme/app_colors.dart';
 import 'package:around_us/src/utils/theme/app_text_styles.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:google_fonts/google_fonts.dart';
 import '../../../routes/app_routes.dart';
 
 class _MyGroup {
@@ -88,7 +87,7 @@ class GroupListScreen extends StatelessWidget {
         icon: const Icon(Icons.add_rounded, color: Colors.white),
         label: Text(
           'Create',
-          style: GoogleFonts.inter(
+          style: TextStyle(fontFamily: 'Sora', 
             color: Colors.white,
             fontWeight: FontWeight.w700,
           ),
@@ -112,13 +111,10 @@ class _GroupTile extends StatelessWidget {
         decoration: BoxDecoration(
           color: c.card,
           borderRadius: BorderRadius.circular(18),
-          boxShadow: [
-            BoxShadow(
-              color: c.shadow,
-              blurRadius: 10,
-              offset: const Offset(0, 3),
-            ),
-          ],
+          border: Border.all(
+            color: Colors.white.withValues(alpha: 0.05),
+            width: 0.5,
+          ),
         ),
         child: Row(
           children: [
@@ -126,8 +122,12 @@ class _GroupTile extends StatelessWidget {
               width: 54,
               height: 54,
               decoration: BoxDecoration(
-                color: group.tagColor,
+                color: group.tagColor.withValues(alpha: 0.1),
                 borderRadius: BorderRadius.circular(14),
+                border: Border.all(
+                  color: group.tagColor.withValues(alpha: 0.2),
+                  width: 1,
+                ),
               ),
               child: Center(
                 child: Text(group.emoji, style: const TextStyle(fontSize: 24)),
@@ -140,17 +140,19 @@ class _GroupTile extends StatelessWidget {
                 children: [
                   Text(
                     group.name,
-                    style: GoogleFonts.inter(
+                    style: const TextStyle(
+                      fontFamily: 'Sora',
                       fontSize: 15,
                       fontWeight: FontWeight.w700,
-                      color: c.textPrimary,
+                      color: Colors.white,
                     ),
                     overflow: TextOverflow.ellipsis,
                   ),
                   const SizedBox(height: 4),
                   Text(
                     group.lastMessage,
-                    style: GoogleFonts.inter(
+                    style: TextStyle(
+                      fontFamily: 'Sora',
                       fontSize: 12,
                       color: c.textSecondary,
                     ),
@@ -165,9 +167,10 @@ class _GroupTile extends StatelessWidget {
               children: [
                 Text(
                   group.time,
-                  style: GoogleFonts.inter(
+                  style: TextStyle(
+                    fontFamily: 'Sora',
                     fontSize: 11,
-                    color: c.textSecondary,
+                    color: c.textHint,
                   ),
                 ),
                 const SizedBox(height: 6),
@@ -182,7 +185,8 @@ class _GroupTile extends StatelessWidget {
                     child: Center(
                       child: Text(
                         '${group.unread}',
-                        style: GoogleFonts.inter(
+                        style: const TextStyle(
+                          fontFamily: 'Sora',
                           fontSize: 11,
                           color: Colors.white,
                           fontWeight: FontWeight.w700,

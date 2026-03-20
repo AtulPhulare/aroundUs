@@ -86,15 +86,16 @@ class NotificationScreen extends StatelessWidget {
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         Padding(
-          padding: const EdgeInsets.only(bottom: 10),
+          padding: const EdgeInsets.only(bottom: 12),
           child: Text(
-            label,
-            // style: AppTextStyles.body.copyWith(
-            //   fontSize: 12,
-            //   fontWeight: FontWeight.w700,
-            //   color: AppColors.dark.textSecondary,
-            //   letterSpacing: 0.5,
-            // ),
+            label.toUpperCase(),
+            style: const TextStyle(
+              fontFamily: 'Sora',
+              fontSize: 11,
+              fontWeight: FontWeight.w700,
+              color: Color(0x61FFFFFF),
+              letterSpacing: 1.2,
+            ),
           ),
         ),
         ...items.map(
@@ -133,17 +134,17 @@ class _NotifCard extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final c = AppColors.of(context);
-    final t = AppTextStyles.of(context);
     return GestureDetector(
       onTap: data.onTap,
       child: Container(
         padding: const EdgeInsets.all(16),
         decoration: BoxDecoration(
-          color: c.surface,
+          color: c.card,
           borderRadius: BorderRadius.circular(18),
-          boxShadow: [
-            BoxShadow(color: c.shadow, blurRadius: 10, offset: Offset(0, 3)),
-          ],
+          border: Border.all(
+            color: Colors.white.withValues(alpha: 0.05),
+            width: 0.5,
+          ),
         ),
         child: Row(
           children: [
@@ -151,10 +152,14 @@ class _NotifCard extends StatelessWidget {
               width: 48,
               height: 48,
               decoration: BoxDecoration(
-                color: data.color,
+                color: data.color.withValues(alpha: 0.1),
                 borderRadius: BorderRadius.circular(14),
+                border: Border.all(
+                  color: data.color.withValues(alpha: 0.2),
+                  width: 1,
+                ),
               ),
-              child: Icon(data.icon, color: c.textPrimary, size: 22),
+              child: Icon(data.icon, color: Colors.white, size: 22),
             ),
             const SizedBox(width: 14),
             Expanded(
@@ -163,22 +168,35 @@ class _NotifCard extends StatelessWidget {
                 children: [
                   Text(
                     data.title,
-                    style: t.body.copyWith(
+                    style: const TextStyle(
+                      fontFamily: 'Sora',
                       fontSize: 14,
                       fontWeight: FontWeight.w700,
+                      color: Colors.white,
                     ),
                   ),
                   const SizedBox(height: 3),
                   Text(
                     data.subtitle,
-                    style: t.subHeading.copyWith(fontSize: 12),
+                    style: TextStyle(
+                      fontFamily: 'Sora',
+                      fontSize: 12,
+                      color: c.textSecondary,
+                    ),
                     overflow: TextOverflow.ellipsis,
                   ),
                 ],
               ),
             ),
             const SizedBox(width: 8),
-            Text(data.time, style: t.subHeading.copyWith(fontSize: 11)),
+            Text(
+              data.time,
+              style: TextStyle(
+                fontFamily: 'Sora',
+                fontSize: 11,
+                color: c.textHint,
+              ),
+            ),
           ],
         ),
       ),

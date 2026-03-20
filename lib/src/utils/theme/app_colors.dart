@@ -10,16 +10,18 @@ import 'package:flutter/material.dart';
 
 class AppColors {
   // ── Brand constants (theme-independent) ─────────────
-  static const Color orange = Color(0xFFFF5A36);
-  static const Color orangeLight = Color(0xFFFFF0ED);
+  static const Color orangeStart = Color(0xFFFF641E);
+  static const Color orangeEnd = Color(0xFFFF9A3C);
+  static const Color orange = orangeStart;
+  static const Color orangeLight = Color(0x66FF641E);
 
   // Tag colours — identical in both themes
-  static const Color tagRed = Color(0xFFFFF0ED);
-  static const Color tagBlue = Color(0xFFEDF5FF);
-  static const Color tagGreen = Color(0xFFEDFFF4);
-  static const Color tagYellow = Color(0xFFFFFBED);
-  static const Color tagPurple = Color(0xFFF5EDFF);
-  static const Color tagPink = Color(0xFFFFEDF7);
+  static const Color tagRed = Color(0x33FF641E);
+  static const Color tagBlue = Color(0x332196F3);
+  static const Color tagGreen = Color(0x334CAF50);
+  static const Color tagYellow = Color(0x33FFC107);
+  static const Color tagPurple = Color(0x339C27B0);
+  static const Color tagPink = Color(0x33E91E63);
 
   // ── Themed fields ───────────────────────────────────
   final Color background;
@@ -58,15 +60,15 @@ class AppColors {
   );
 
   static const dark = AppColors._(
-    background: Color(0xFF121212),
-    surface: Color(0xFF1E1E1E),
-    card: Color(0xFF252525),
-    textPrimary: Color(0xFFF5F5F5),
-    textSecondary: Color(0xFF9E9E9E),
-    textHint: Color(0xFF757575),
+    background: Color(0xFF0A0A0A),
+    surface: Color(0xFF141414),
+    card: Color(0xFF141414),
+    textPrimary: Colors.white,
+    textSecondary: Color(0x8AFFFFFF),
+    textHint: Color(0x61FFFFFF),
     border: Color(0x1AFFFFFF),
     shadow: Color(0x33000000),
-    inputFill: Color(0xFF2A2A2A),
+    inputFill: Color(0x0AFFFFFF),
   );
 
   /// Convenience accessor — picks light/dark based on current brightness.

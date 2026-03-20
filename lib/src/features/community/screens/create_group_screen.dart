@@ -111,19 +111,16 @@ class _CreateGroupScreenState extends State<CreateGroupScreen>
                           height: 44,
                           width: 44,
                           decoration: BoxDecoration(
-                            color: c.surface,
+                            color: c.card,
                             borderRadius: BorderRadius.circular(12),
-                            boxShadow: [
-                              BoxShadow(
-                                color: c.shadow,
-                                blurRadius: 8,
-                                offset: Offset(0, 2),
-                              ),
-                            ],
+                            border: Border.all(
+                              color: Colors.white.withValues(alpha: 0.05),
+                              width: 0.5,
+                            ),
                           ),
                           child: Icon(
                             Icons.arrow_back_rounded,
-                            color: c.textPrimary,
+                            color: Colors.white,
                             size: 20,
                           ),
                         ),
@@ -166,22 +163,15 @@ class _CreateGroupScreenState extends State<CreateGroupScreen>
                                   height: 52,
                                   decoration: BoxDecoration(
                                     color: isSelected
-                                        ? AppColors.orangeLight
-                                        : c.surface,
+                                        ? AppColors.orange.withValues(alpha: 0.1)
+                                        : c.card,
                                     borderRadius: BorderRadius.circular(14),
                                     border: Border.all(
                                       color: isSelected
                                           ? AppColors.orange
-                                          : Colors.transparent,
-                                      width: 2,
+                                          : Colors.white.withValues(alpha: 0.05),
+                                      width: isSelected ? 1.5 : 0.5,
                                     ),
-                                    boxShadow: [
-                                      BoxShadow(
-                                        color: c.shadow,
-                                        blurRadius: 6,
-                                        offset: Offset(0, 2),
-                                      ),
-                                    ],
                                   ),
                                   child: Center(
                                     child: Text(
@@ -213,29 +203,38 @@ class _CreateGroupScreenState extends State<CreateGroupScreen>
                         const SizedBox(height: 10),
                         Container(
                           decoration: BoxDecoration(
-                            color: c.surface,
+                            color: c.inputFill,
                             borderRadius: BorderRadius.circular(16),
+                            border: Border.all(
+                              color: Colors.white.withValues(alpha: 0.05),
+                              width: 0.5,
+                            ),
                           ),
                           child: TextField(
                             controller: _descCtrl,
-                            maxLines: 3,
-                            style: t.body.copyWith(fontSize: 14),
+                            maxLines: 4,
+                            style: const TextStyle(
+                              fontFamily: 'Sora',
+                              fontSize: 14,
+                              color: Colors.white,
+                            ),
                             decoration: InputDecoration(
                               hintText: 'What is this group about?',
                               hintStyle: TextStyle(
-                                color: c.textHint,
+                                fontFamily: 'Sora',
+                                color: c.textHint.withValues(alpha: 0.3),
                                 fontSize: 14,
                               ),
                               prefixIcon: Padding(
-                                padding: EdgeInsets.only(bottom: 42),
+                                padding: const EdgeInsets.only(bottom: 58),
                                 child: Icon(
                                   Icons.description_outlined,
                                   color: c.textSecondary,
-                                  size: 20,
+                                  size: 18,
                                 ),
                               ),
                               border: InputBorder.none,
-                              contentPadding: EdgeInsets.symmetric(
+                              contentPadding: const EdgeInsets.symmetric(
                                 horizontal: 16,
                                 vertical: 14,
                               ),
@@ -265,30 +264,14 @@ class _CreateGroupScreenState extends State<CreateGroupScreen>
                                 decoration: BoxDecoration(
                                   color: isSelected
                                       ? AppColors.orange
-                                      : c.surface,
+                                      : c.card,
                                   borderRadius: BorderRadius.circular(24),
                                   border: Border.all(
                                     color: isSelected
                                         ? AppColors.orange
-                                        : c.textSecondary.withOpacity(0.3),
+                                        : Colors.white.withValues(alpha: 0.05),
+                                    width: 0.5,
                                   ),
-                                  boxShadow: isSelected
-                                      ? [
-                                          BoxShadow(
-                                            color: AppColors.orange.withOpacity(
-                                              0.2,
-                                            ),
-                                            blurRadius: 8,
-                                            offset: const Offset(0, 3),
-                                          ),
-                                        ]
-                                      : [
-                                          BoxShadow(
-                                            color: c.shadow,
-                                            blurRadius: 4,
-                                            offset: Offset(0, 1),
-                                          ),
-                                        ],
                                 ),
                                 child: Text(
                                   cat,
@@ -325,15 +308,12 @@ class _CreateGroupScreenState extends State<CreateGroupScreen>
                             vertical: 14,
                           ),
                           decoration: BoxDecoration(
-                            color: c.surface,
+                            color: c.card,
                             borderRadius: BorderRadius.circular(16),
-                            boxShadow: [
-                              BoxShadow(
-                                color: c.shadow,
-                                blurRadius: 8,
-                                offset: Offset(0, 2),
-                              ),
-                            ],
+                            border: Border.all(
+                              color: Colors.white.withValues(alpha: 0.05),
+                              width: 0.5,
+                            ),
                           ),
                           child: Row(
                             children: [

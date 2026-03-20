@@ -30,18 +30,11 @@ class ProfileScreen extends StatelessWidget {
                 padding: const EdgeInsets.all(24),
                 decoration: BoxDecoration(
                   gradient: const LinearGradient(
-                    colors: [AppColors.orange, Color(0xFFFF8A65)],
+                    colors: [AppColors.orangeStart, AppColors.orangeEnd],
                     begin: Alignment.topLeft,
                     end: Alignment.bottomRight,
                   ),
                   borderRadius: BorderRadius.circular(24),
-                  boxShadow: [
-                    BoxShadow(
-                      color: AppColors.orange.withOpacity(0.3),
-                      blurRadius: 20,
-                      offset: const Offset(0, 8),
-                    ),
-                  ],
                 ),
                 child: Column(
                   children: [
@@ -230,6 +223,7 @@ class _StatChip extends StatelessWidget {
         Text(
           value,
           style: const TextStyle(
+            fontFamily: 'Sora',
             fontSize: 20,
             fontWeight: FontWeight.w900,
             color: Colors.white,
@@ -237,7 +231,11 @@ class _StatChip extends StatelessWidget {
         ),
         Text(
           label,
-          style: const TextStyle(fontSize: 11, color: Colors.white70),
+          style: const TextStyle(
+            fontFamily: 'Sora',
+            fontSize: 11, 
+            color: Colors.white70
+          ),
         ),
       ],
     );
@@ -251,20 +249,16 @@ class _SectionCard extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final c = AppColors.of(context);
-    final t = AppTextStyles.of(context);
     return Container(
       width: double.infinity,
       padding: const EdgeInsets.all(18),
       decoration: BoxDecoration(
         color: c.card,
         borderRadius: BorderRadius.circular(20),
-        boxShadow: [
-          BoxShadow(
-            color: c.shadow,
-            blurRadius: 10,
-            offset: const Offset(0, 4),
-          ),
-        ],
+        border: Border.all(
+          color: Colors.white.withValues(alpha: 0.05),
+          width: 0.5,
+        ),
       ),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
@@ -281,7 +275,6 @@ class _SectionHeader extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final c = AppColors.of(context);
     final t = AppTextStyles.of(context);
     return Row(
       children: [
@@ -336,9 +329,11 @@ class _SettingsTile extends StatelessWidget {
             Expanded(
               child: Text(
                 label,
-                style: t.body.copyWith(
+                style: TextStyle(
+                  fontFamily: 'Sora',
+                  fontSize: 14,
                   fontWeight: FontWeight.w600,
-                  color: isDestructive ? c.surface : c.border,
+                  color: isDestructive ? const Color(0xFFFF5252) : Colors.white,
                 ),
               ),
             ),
